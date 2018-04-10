@@ -1,0 +1,57 @@
+<%= form_for(beach) do |f| %>
+  <% if beach.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(beach.errors.count, "error") %> prohibited this beach from being saved:</h2>
+
+      <ul>
+      <% beach.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :location %>
+    <%= f.text_area :location %>
+  </div>
+
+  <div class="field">
+    <%= f.label :sand_color %>
+    <%= f.text_field :sand_color %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :main_picture %>
+    <%= f.text_field :main_picture %>
+  </div>
+
+  <div class="field">
+    <%= f.label :secondary_picture %>
+    <%= f.text_field :secondary_picture %>
+  </div>
+
+  <div class="field">
+    <%= f.label :latitude %>
+    <%= f.text_field :latitude %>
+  </div>
+
+  <div class="field">
+    <%= f.label :longitude %>
+    <%= f.text_field :longitude %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

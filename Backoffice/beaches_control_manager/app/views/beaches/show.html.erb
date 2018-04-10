@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @beach.name %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @beach.location %>
+</p>
+
+<p>
+  <strong>Sand color:</strong>
+  <%= @beach.sand_color %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @beach.description %>
+</p>
+
+<p>
+  <strong>Main picture:</strong>
+  <%= @beach.main_picture %>
+</p>
+
+<p>
+  <strong>Secondary picture:</strong>
+  <%= @beach.secondary_picture %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @beach.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @beach.longitude %>
+</p>
+
+<%= link_to 'Edit', edit_beach_path(@beach) %> |
+<%= link_to 'Back', beaches_path %>
