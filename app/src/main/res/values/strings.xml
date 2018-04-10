@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">BeachFinder</string>
+
+    <string name="facebook_app_id">420092748418015</string>
+    <string name="fb_login_protocol_scheme">fb420092748418015</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">BeachFinder</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="no_account">Don\'t have an account? Click here to sign up</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- Strings related to search -->
+    <string name="search_button">Search</string>
+    <string name="title_activity_beach_list">beachList</string>
+    <string name="title_activity_maps">Map</string>
+
+    <!-- Strings related google Maps -->
+    <string name="google_maps_key">AIzaSyA0XlOYpsv5u7WpYe4zdzhFCcayEgvzQFI</string>
+
+
+    <!-- Strings related to selected beach -->
+    <string name="title_activity_selected_beach">SelectedBeach</string>
+    <string name="Button_route_selected_beach">Route</string>
+    <string name="Button_Pictures_selected_beach">Pictures</string>
+    <string name="Button_Comments_selected_beach">Comments</string>
+    <string name="Button_Description_selected_beach">Description</string>
+    <string name="Button_Prices_selected_beach">Prices</string>
+    <string name="Button_Weather_selected_beach">Weather</string>
+    <string name="title_activity_pictures">Pictures</string>
+    <string name="title_activity_comments">Comments</string>
+    <string name="title_activity_description">Description</string>
+
+</resources>
