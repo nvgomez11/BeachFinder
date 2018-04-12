@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @beach.name %>
+  <strong>Beach name:</strong>
+  <%= @beach.beach_name %>
 </p>
 
 <p>
@@ -21,13 +21,13 @@
 </p>
 
 <p>
-  <strong>Main picture:</strong>
-  <%= @beach.main_picture %>
+  <strong>Main image:</strong>
+  <%= @beach.main_image %>
 </p>
 
 <p>
-  <strong>Secondary picture:</strong>
-  <%= @beach.secondary_picture %>
+  <strong>Secondary image:</strong>
+  <%= @beach.secondary_image %>
 </p>
 
 <p>
@@ -38,6 +38,51 @@
 <p>
   <strong>Longitude:</strong>
   <%= @beach.longitude %>
+</p>
+
+<p>
+  <strong>Wave type:</strong>
+  <%= @beach.wave_type %>
+</p>
+
+<p>
+  <strong>Snorkeling:</strong>
+  <%= @beach.snorkeling %>
+</p>
+
+<p>
+  <strong>Swimming:</strong>
+  <%= @beach.swimming %>
+</p>
+
+<p>
+  <strong>Shade:</strong>
+  <%= @beach.shade %>
+</p>
+
+<p>
+  <strong>Night life:</strong>
+  <%= @beach.night_life %>
+</p>
+
+<p>
+  <strong>Camping zone:</strong>
+  <%= @beach.camping_zone %>
+</p>
+
+<p>
+  <strong>Protected area:</strong>
+  <%= @beach.protected_area %>
+</p>
+
+<p>
+  <strong>Cristal water:</strong>
+  <%= @beach.cristal_water %>
+</p>
+
+<p>
+  <strong>Vegetation:</strong>
+  <%= @beach.vegetation %>
 </p>
 
 <%= link_to 'Edit', edit_beach_path(@beach) %> |

@@ -5,14 +5,23 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Beach name</th>
       <th>Location</th>
       <th>Sand color</th>
       <th>Description</th>
-      <th>Main picture</th>
-      <th>Secondary picture</th>
+      <th>Main image</th>
+      <th>Secondary image</th>
       <th>Latitude</th>
       <th>Longitude</th>
+      <th>Wave type</th>
+      <th>Snorkeling</th>
+      <th>Swimming</th>
+      <th>Shade</th>
+      <th>Night life</th>
+      <th>Camping zone</th>
+      <th>Protected area</th>
+      <th>Cristal water</th>
+      <th>Vegetation</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,14 +29,23 @@
   <tbody>
     <% @beaches.each do |beach| %>
       <tr>
-        <td><%= beach.name %></td>
+        <td><%= beach.beach_name %></td>
         <td><%= beach.location %></td>
         <td><%= beach.sand_color %></td>
         <td><%= beach.description %></td>
-        <td><%= beach.main_picture %></td>
-        <td><%= beach.secondary_picture %></td>
+        <td><%= beach.main_image %></td>
+        <td><%= beach.secondary_image %></td>
         <td><%= beach.latitude %></td>
         <td><%= beach.longitude %></td>
+        <td><%= beach.wave_type %></td>
+        <td><%= beach.snorkeling %></td>
+        <td><%= beach.swimming %></td>
+        <td><%= beach.shade %></td>
+        <td><%= beach.night_life %></td>
+        <td><%= beach.camping_zone %></td>
+        <td><%= beach.protected_area %></td>
+        <td><%= beach.cristal_water %></td>
+        <td><%= beach.vegetation %></td>
         <td><%= link_to 'Show', beach %></td>
         <td><%= link_to 'Edit', edit_beach_path(beach) %></td>
         <td><%= link_to 'Destroy', beach, method: :delete, data: { confirm: 'Are you sure?' } %></td>

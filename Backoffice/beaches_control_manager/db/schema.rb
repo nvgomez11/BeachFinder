@@ -10,19 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180410025322) do
+ActiveRecord::Schema.define(version: 20180412075407) do
 
   create_table "beaches", force: :cascade do |t|
-    t.string   "name"
-    t.text     "location"
+    t.string   "beach_name"
+    t.string   "location"
     t.string   "sand_color"
     t.text     "description"
-    t.string   "main_picture"
-    t.string   "secondary_picture"
+    t.string   "main_image"
+    t.string   "secondary_image"
     t.string   "latitude"
     t.string   "longitude"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.string   "wave_type"
+    t.boolean  "snorkeling"
+    t.boolean  "swimming"
+    t.boolean  "shade"
+    t.boolean  "night_life"
+    t.boolean  "camping_zone"
+    t.boolean  "protected_area"
+    t.boolean  "cristal_water"
+    t.string   "vegetation"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "users", force: :cascade do |t|
