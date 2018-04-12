@@ -32,6 +32,42 @@
     <string name="Advanced">Advanced</string>
     <string name="Image_description">Icon Image</string>
 
+    <!-- Strings related to advanced search -->
+    <string name="Location">1. Location</string>
+    <string name="Sand_color">2. Sand Color</string>
+    <string name="Tide">3. Tide</string>
+    <string name="Swimming">4. Swimming</string>
+    <string name="Nightlife">5. Nightlife</string>
+    <string name="Camping">6. Camping</string>
+    <string name="Shade">7. Shade</string>
+    <string name="Vegetation">8. Vegetation</string>
+    <string name="Snorkeling">9. Snorkeling</string>
+    <string name="Protected_area">10. Protected Area</string>
+    <string name="Crystal_Clear_Water">11. Crystal-Clear water</string>
+
+    <string name="guanacaste">Guanacaste</string>
+    <string name="puntarenas">Puntarenas</string>
+    <string name="limon">Limón</string>
+
+    <string name="Gray">Gray</string>
+    <string name="Gold">Gold</string>
+    <string name="Black">Black</string>
+    <string name="White">White</string>
+    <string name="Strong">Strong</string>
+    <string name="Weak">Weak</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="Any">Any</string>
+    <string name="Medium">Medium</string>
+
+    <string name="Much">Much</string>
+    <string name="Little">Little</string>
+
+
+
+
+
+
 
     <!-- Strings related google Maps -->
     <string name="google_maps_key">AIzaSyA0XlOYpsv5u7WpYe4zdzhFCcayEgvzQFI</string>

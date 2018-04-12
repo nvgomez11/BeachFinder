@@ -93,4 +93,9 @@ public class AdvancedSearch extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void goBeachListActivity(View view){
+        Intent intent = new Intent(this,beachList.class);
+        startActivity(intent);
+    }
 }
