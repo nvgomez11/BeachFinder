@@ -1,5 +1,7 @@
 package com.example.nelson.beachfinder;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -10,12 +12,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONObject;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
@@ -28,6 +35,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        // Do other setup activities here too, as described elsewhere in this tutorial.
+
+        // Build the Play services client for use by the Fused Location Provider and the Places API.
+        // Use the addApi() method to request the Google Places API and the Fused Location Provider.
 
     }
 
@@ -45,9 +58,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-84.09072459999999, 9.9280694);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Costa Rica"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        UiSettings uiSettings = mMap.getUiSettings();
+        uiSettings.setZoomControlsEnabled(true);
+
+        //move camara
+        LatLng costa_rica = new LatLng(10.346093801369888,-84.40597112187498 );
+        float zoomlevel = 7;
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(costa_rica,zoomlevel));
+
+
+ /*       //add markers
+        LatLng tamarindo_beach = new LatLng(10.297445,-85.832117);
+        mMap.addMarker(new MarkerOptions().position(tamarindo_beach).title("Tamarindo beach"));
+
+        LatLng jaco_beach = new LatLng( 9.62024,-84.621749);
+        mMap.addMarker(new MarkerOptions().position(jaco_beach).title("Jaco Beach"));*/
+
     }
 }

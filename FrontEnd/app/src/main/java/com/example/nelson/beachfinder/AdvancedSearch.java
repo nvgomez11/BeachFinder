@@ -1,11 +1,9 @@
 package com.example.nelson.beachfinder;
 
 import android.content.Intent;
-import android.media.MediaCas;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,34 +13,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.ListView;
-import android.os.AsyncTask;
-import android.widget.Toast;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.util.HashMap;
-import com.facebook.AccessToken;
+
 import com.facebook.login.LoginManager;
 
-public class SearchActivity extends AppCompatActivity
+public class AdvancedSearch extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    DrawerLayout drawer;
-    NavigationView navigationView;
-    Toolbar toolbar=null;
-
-    private String TAG = SearchActivity.class.getSimpleName();
-    private ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-
-
-
-        //-------------------------------------
+        setContentView(R.layout.activity_advanced_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -55,22 +35,15 @@ public class SearchActivity extends AppCompatActivity
             }
         });
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //-------------------------------------
-        Button search_button = findViewById(R.id.button_search);
-
     }
-
-
-
 
     @Override
     public void onBackPressed() {
@@ -88,7 +61,6 @@ public class SearchActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.search, menu);
         return true;
     }
-
 
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -120,14 +92,5 @@ public class SearchActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void goBeachListActivity(View view){
-        Intent intent = new Intent(this,beachList.class);
-        startActivity(intent);
-    }
-    public void goAdvancedSearchActivity(View view){
-        Intent intent = new Intent(this,AdvancedSearch.class);
-        startActivity(intent);
     }
 }

@@ -28,6 +28,10 @@
     <string name="search_button">Search</string>
     <string name="title_activity_beach_list">beachList</string>
     <string name="title_activity_maps">Map</string>
+    <string name="BeachName">Type the name of the beach</string>
+    <string name="Advanced">Advanced</string>
+    <string name="Image_description">Icon Image</string>
+
 
     <!-- Strings related google Maps -->
     <string name="google_maps_key">AIzaSyA0XlOYpsv5u7WpYe4zdzhFCcayEgvzQFI</string>
@@ -44,5 +48,6 @@
     <string name="title_activity_pictures">Pictures</string>
     <string name="title_activity_comments">Comments</string>
     <string name="title_activity_description">Description</string>
+    <string name="title_activity_advanced_search">AdvancedSearch</string>
 
 </resources>
