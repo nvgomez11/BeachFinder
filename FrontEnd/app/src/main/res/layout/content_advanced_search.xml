@@ -47,6 +47,7 @@
                 android:orientation="horizontal">
 
                 <RadioGroup
+                    android:id="@+id/radioGroup1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -102,7 +103,7 @@
                 android:orientation="horizontal">
 
                 <RadioGroup
-                    android:id="@+id/radio_group_2"
+                    android:id="@+id/radioGroup2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingBottom="10dp"
@@ -155,6 +156,7 @@
                 android:orientation="vertical">
 
                 <RadioGroup
+                    android:id="@+id/radioGroup3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingBottom="10dp"
@@ -207,6 +209,7 @@
                 android:orientation="vertical">
 
                 <RadioGroup
+                    android:id="@+id/radioGroup4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingBottom="10dp"
@@ -252,6 +255,7 @@
                 android:orientation="vertical">
 
                 <RadioGroup
+                    android:id="@+id/radioGroup5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingBottom="10dp"
@@ -297,6 +301,7 @@
                 android:orientation="vertical">
 
                 <RadioGroup
+                    android:id="@+id/radioGroup6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingBottom="10dp"
@@ -342,6 +347,7 @@
                 android:orientation="vertical">
 
                 <RadioGroup
+                    android:id="@+id/radioGroup7"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingBottom="10dp"
@@ -388,6 +394,7 @@
                 android:orientation="vertical">
 
                 <RadioGroup
+                    android:id="@+id/radioGroup8"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingBottom="10dp"
@@ -433,6 +440,7 @@
                 android:orientation="vertical">
 
                 <RadioGroup
+                    android:id="@+id/radioGroup9"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingBottom="10dp"
@@ -478,6 +486,7 @@
                 android:orientation="vertical">
 
                 <RadioGroup
+                    android:id="@+id/radioGroup10"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingBottom="10dp"
@@ -523,6 +532,7 @@
                 android:orientation="vertical">
 
                 <RadioGroup
+                    android:id="@+id/radioGroup11"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingBottom="10dp"
@@ -559,7 +569,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center"
                 android:onClick="goBeachListActivity"
-                android:paddingLeft="   "
                 android:text="@string/search_button" />
 
         </LinearLayout>
