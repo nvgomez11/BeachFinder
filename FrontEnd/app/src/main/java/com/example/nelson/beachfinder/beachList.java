@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,8 +17,13 @@ import android.view.MenuItem;
 
 import com.facebook.login.LoginManager;
 
+import java.util.ArrayList;
+
 public class beachList extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ArrayList<String> data_user = data_user = new ArrayList<String>();;
+    static ArrayList<String> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,21 @@ public class beachList extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //------------------------------------
+        Intent intent = getIntent();
+        String activityName = intent.getStringExtra("activity_name");
+
+        if(activityName.compareTo("search")==0){
+            Log.d("Mae",SearchActivity.beachName);
+        }else{
+            data = AdvancedSearch.data_selected_list;
+            if(data.isEmpty()!=true){
+                for(int i=0; i<data.size();i++){
+                    Log.d("Mae",data.get(i));
+                }
+            }
+        }
     }
 
     @Override

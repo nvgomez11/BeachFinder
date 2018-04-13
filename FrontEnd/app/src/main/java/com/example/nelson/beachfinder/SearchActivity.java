@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.os.AsyncTask;
@@ -31,6 +32,8 @@ public class SearchActivity extends AppCompatActivity
     DrawerLayout drawer;
     NavigationView navigationView;
     Toolbar toolbar=null;
+    AutoCompleteTextView txtView;
+    static String beachName = "";
 
     private String TAG = SearchActivity.class.getSimpleName();
     private ListView lv;
@@ -123,8 +126,19 @@ public class SearchActivity extends AppCompatActivity
     }
 
     public void goBeachListActivity(View view){
-        Intent intent = new Intent(this,beachList.class);
-        startActivity(intent);
+        txtView = findViewById(R.id.auto_comp_text);
+        beachName = String.valueOf(txtView.getText());
+
+        if( txtView.getText().toString().trim().equals(""))
+        {
+            txtView.setError( "Beach name is required!" );
+
+            txtView.setHint("Type a beach name");
+        } else {
+            Intent intent = new Intent(this,beachList.class);
+            intent.putExtra("activity_name","search");
+            startActivity(intent);
+        }
     }
     public void goAdvancedSearchActivity(View view){
         Intent intent = new Intent(this,AdvancedSearch.class);

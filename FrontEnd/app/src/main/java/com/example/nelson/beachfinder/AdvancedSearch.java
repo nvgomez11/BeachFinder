@@ -26,8 +26,8 @@ import java.util.List;
 public class AdvancedSearch extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    static ArrayList<String> data_selected_list = new ArrayList<String>();;
     ArrayList<RadioGroup> radioGroup_list = new ArrayList<RadioGroup>();
-    ArrayList<String> data_selected_list = new ArrayList<String>();
     String location,sandColor,tide,vegetation;
     int swimming,nightlife,camping,shade, snorkeling,protectedArea,clearWater;
 
@@ -133,6 +133,7 @@ public class AdvancedSearch extends AppCompatActivity
     }
 
     public void goBeachListActivity(View view){
+        data_selected_list.clear();
         for(int i=0;i<radioGroup_list.size();i++){
             int radio_btn_id = radioGroup_list.get(i).getCheckedRadioButtonId();
             View radioButton = radioGroup_list.get(i).findViewById(radio_btn_id);
@@ -142,11 +143,8 @@ public class AdvancedSearch extends AppCompatActivity
             data_selected_list.add(selection);
         }
 
-        for(int n=0; n<data_selected_list.size();n++){
-            Log.d("Mae", data_selected_list.get(n));
-        }
-
         Intent intent = new Intent(this,beachList.class);
+        intent.putExtra("activity_name","advanced");
         startActivity(intent);
     }
 
