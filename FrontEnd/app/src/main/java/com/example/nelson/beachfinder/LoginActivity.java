@@ -74,6 +74,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     LoginButton loginButton;
     CallbackManager callbackManager;
 
+    public void clickNewUser(View view)
+    {
+        Intent intent = new Intent(this, NewUser.class);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -386,7 +392,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                finish();
+                goMainActivity(); //Para ejecutar activity busqueda si se escriben los Dummy Credential
+                //finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

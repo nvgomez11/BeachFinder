@@ -64,11 +64,6 @@
     <string name="Little">Little</string>
 
 
-
-
-
-
-
     <!-- Strings related google Maps -->
     <string name="google_maps_key">AIzaSyA0XlOYpsv5u7WpYe4zdzhFCcayEgvzQFI</string>
 
@@ -85,5 +80,6 @@
     <string name="title_activity_comments">Comments</string>
     <string name="title_activity_description">Description</string>
     <string name="title_activity_advanced_search">AdvancedSearch</string>
+    <string name="title_activity_new_user">NewUser</string>
 
 </resources>
