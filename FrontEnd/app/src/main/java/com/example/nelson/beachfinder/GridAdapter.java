@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by Nelson on 14/4/2018.
  */
@@ -15,26 +17,25 @@ import android.widget.TextView;
 public class GridAdapter extends BaseAdapter {
 
     private int icons[];
-    private String title[];
-    private String description[];
+    private ArrayList<String> title;
+    private ArrayList<String> description;
     private Context context;
     private LayoutInflater inflater;
 
 
-    public GridAdapter(Context contex, int icons[], String title[],String description[]){
+    public GridAdapter(Context context, ArrayList<String> title, ArrayList<String> description){
         this.context = context;
-        this.icons = icons;
+        this.description = description;
         this.title = title;
-
     }
     @Override
     public int getCount() {
-        return title.length;
+        return title.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return title[i];
+        return title.get(i);
     }
 
     @Override
@@ -49,14 +50,13 @@ public class GridAdapter extends BaseAdapter {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             gridView = inflater.inflate(R.layout.content_beach_list_inflator,null);
         }
-
-        ImageView icon = (ImageView) gridView.findViewById(R.id.icons);
+        //ImageView icon = (ImageView) gridView.findViewById(R.id.icons);
         TextView grid_titles = (TextView) gridView.findViewById(R.id.titles);
         TextView grid_description = (TextView) gridView.findViewById(R.id.grid_descriptions);
 
-        icon.setImageResource(icons[position]);
-        grid_titles.setText(title[position]);
-        grid_description.setText(description[position]);
+        //icon.setImageResource(icons[position]);
+        grid_titles.setText(title.get(position).toString());
+        grid_description.setText(description.get(position).toString());
 
         return gridView;
     }
