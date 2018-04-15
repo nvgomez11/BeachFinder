@@ -13,8 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="1"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
     </GridView>
+
 </android.support.constraint.ConstraintLayout>

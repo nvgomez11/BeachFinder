@@ -106,7 +106,7 @@ public class SearchActivity extends AppCompatActivity
         jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 //ip de la maquina, cel y compu deben estar en misma red
-                "http://192.168.0.8:3000/beaches.json",
+                "https://beach-finder.herokuapp.com/beaches.json",
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override

@@ -104,7 +104,7 @@ public class beachList extends AppCompatActivity
             Log.d("met_beaches",beaches_titles.get(i));
         }
 
-        GridAdapter adapter = new GridAdapter(this,beaches_titles,beaches_descriptions);
+        GridAdapter adapter = new GridAdapter(this,beaches_titles,beaches_descriptions,beaches_icons);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -250,8 +250,10 @@ public class beachList extends AppCompatActivity
             ArrayList beach = all_beaches_apply.get(i);
             String title = beach.get(1).toString();
             String description = beach.get(4).toString();
+            String icon = beach.get(5).toString();
             beaches_titles.add(title);
             beaches_descriptions.add(description);
+            beaches_icons.add(icon);
         }
     }
 
