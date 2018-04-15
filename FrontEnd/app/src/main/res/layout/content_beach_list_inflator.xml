@@ -47,23 +47,29 @@
                         android:id="@+id/titles"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:lineSpacingExtra="8sp"
-                        android:text="Tamarindo"
-                        android:textAlignment="viewStart"
-                        android:focusableInTouchMode="true"
                         android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:gravity="center_vertical"
+                        android:text="Tamarindo"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/grid_descriptions"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:inputType="textMultiLine"
-                        android:focusableInTouchMode="true"
                         android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/roboto"
+                        android:gravity="top"
+                        android:inputType="textMultiLine"
+                        android:text="Such a beautiful beach located in the south of Guanacaste. This beach has become in one of the most popular paradise in this province. "
+                        android:textAlignment="viewStart"
                         android:textSize="12sp" />
 
                 </LinearLayout>
