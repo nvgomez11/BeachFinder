@@ -23,7 +23,20 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 
@@ -33,11 +46,9 @@ public class SearchActivity extends AppCompatActivity
     NavigationView navigationView;
     Toolbar toolbar=null;
     AutoCompleteTextView txtView;
-    static String beachName = "";
+    static String beachNameWritten = "";
 
-    private String TAG = SearchActivity.class.getSimpleName();
-    private ListView lv;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,11 +79,10 @@ public class SearchActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //-------------------------------------
+
         Button search_button = findViewById(R.id.button_search);
 
     }
-
-
 
 
     @Override
@@ -127,7 +137,7 @@ public class SearchActivity extends AppCompatActivity
 
     public void goBeachListActivity(View view){
         txtView = findViewById(R.id.auto_comp_text);
-        beachName = String.valueOf(txtView.getText());
+        beachNameWritten = String.valueOf(txtView.getText());
 
         if( txtView.getText().toString().trim().equals(""))
         {
@@ -137,8 +147,23 @@ public class SearchActivity extends AppCompatActivity
         } else {
             Intent intent = new Intent(this,beachList.class);
             intent.putExtra("activity_name","search");
+
+            AdvancedSearch.data_selected_list.clear();
+            AdvancedSearch.data_selected_list.add("Any");
+            AdvancedSearch.data_selected_list.add("Any");
+            AdvancedSearch.data_selected_list.add("Any");
+            AdvancedSearch.data_selected_list.add("Any");
+            AdvancedSearch.data_selected_list.add("Any");
+            AdvancedSearch.data_selected_list.add("Any");
+            AdvancedSearch.data_selected_list.add("Any");
+            AdvancedSearch.data_selected_list.add("Any");
+            AdvancedSearch.data_selected_list.add("Any");
+            AdvancedSearch.data_selected_list.add("Any");
+            AdvancedSearch.data_selected_list.add("Any");
+            AdvancedSearch.data_selected_list.add(txtView.getText().toString());
             startActivity(intent);
         }
+
     }
     public void goAdvancedSearchActivity(View view){
         Intent intent = new Intent(this,AdvancedSearch.class);

@@ -142,7 +142,6 @@ public class AdvancedSearch extends AppCompatActivity
             String selection = (String) btn.getText();
             data_selected_list.add(selection);
         }
-
         Intent intent = new Intent(this,beachList.class);
         intent.putExtra("activity_name","advanced");
         startActivity(intent);
