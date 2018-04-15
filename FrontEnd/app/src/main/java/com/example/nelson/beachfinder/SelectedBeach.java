@@ -13,11 +13,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class SelectedBeach extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+        ArrayList<String> chosen_beach_info = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,21 @@ public class SelectedBeach extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //---------------------------------------
+
+        //recibe intent
+        Intent intent = getIntent();
+        chosen_beach_info = intent.getStringArrayListExtra("selected_beach");
+        //carga wigets
+        ImageView imageView = findViewById(R.id.icon_selected_beach);
+        TextView textView = findViewById(R.id.title_selected_beach);
+        //carga info de la palya seleccionada
+        String url = chosen_beach_info.get(5);
+        String title = chosen_beach_info.get(1);
+        //set info
+        Picasso.get().load(url).into(imageView);
+        textView.setText(title);
+
+
     }
 
     @Override

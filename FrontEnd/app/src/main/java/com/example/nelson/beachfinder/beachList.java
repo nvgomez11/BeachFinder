@@ -109,7 +109,10 @@ public class beachList extends AppCompatActivity
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_LONG).show();
+                Toast.makeText(beachList.this,"Selected beach is"+beaches_titles.get(i),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(),SelectedBeach.class);
+                intent.putStringArrayListExtra("selected_beach",all_beaches_apply.get(i));
+                startActivity(intent);
             }
         });
 

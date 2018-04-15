@@ -6,53 +6,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants">
 
-        <LinearLayout
-            android:layout_width="368dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
-
-            <ImageView
-                android:id="@+id/icons_img"
-                android:layout_width="6dp"
-                android:layout_height="161dp"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/sym_def_app_icon" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:focusable="false">
 
             <LinearLayout
-                android:layout_width="23dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_width="368dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp"
+                android:focusableInTouchMode="true"
+                android:focusable="false">
 
-                <TextView
-                    android:id="@+id/titles"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/icons_img"
+                    android:layout_width="6dp"
+                    android:layout_height="161dp"
                     android:layout_weight="1"
-                    android:lineSpacingExtra="8sp"
-                    android:text="Tamarindo"
-                    android:textAlignment="viewStart"
-                    android:textStyle="bold" />
+                    android:focusableInTouchMode="true"
+                    android:focusable="false"
+                    app:srcCompat="@android:drawable/sym_def_app_icon" />
 
-                <EditText
-                    android:id="@+id/grid_descriptions"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="23dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textMultiLine"
-                    android:textSize="12sp" />
+                    android:focusableInTouchMode="true"
+                    android:focusable="false"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/titles"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:lineSpacingExtra="8sp"
+                        android:text="Tamarindo"
+                        android:textAlignment="viewStart"
+                        android:focusableInTouchMode="true"
+                        android:focusable="false"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/grid_descriptions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="textMultiLine"
+                        android:focusableInTouchMode="true"
+                        android:focusable="false"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-    </FrameLayout>
+        </FrameLayout>
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

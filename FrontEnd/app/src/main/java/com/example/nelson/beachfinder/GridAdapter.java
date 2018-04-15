@@ -63,7 +63,6 @@ public class GridAdapter extends BaseAdapter {
         grid_titles.setText(title.get(position).toString());
         grid_description.setText(description.get(position).toString());
         String url = String.valueOf(icons.get(position).toString());
-        Log.d("url",url);
         Picasso.get().load(url).into(image);
 
         return gridView;

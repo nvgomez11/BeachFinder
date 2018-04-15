@@ -12,6 +12,8 @@
         android:id="@+id/grid_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        android:focusableInTouchMode="false"
         android:numColumns="1"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
