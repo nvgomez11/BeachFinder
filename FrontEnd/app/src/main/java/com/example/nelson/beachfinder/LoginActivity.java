@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,12 +33,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +76,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -73,6 +90,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     //facebook
     LoginButton loginButton;
     CallbackManager callbackManager;
+
+
+    //---------
+    static ArrayList<ArrayList> all_json_users = new ArrayList<ArrayList>();
+    RequestQueue mRequestQueue;
+    Cache cache;
+    Network network;
+    JsonArrayRequest jsonArrayRequest;
+    //---------
+    private ArrayList<String> USER_CREDENTIALS=new ArrayList<>(); //No mas de 50 usuario en arreglo estatico
+
+
+
 
     public void clickNewUser(View view)
     {
@@ -101,6 +131,94 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        //--------------------Bloque para bajar users de API
+
+        //request_json(activityName);
+        //Instantiate the cache
+        cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+        //Set up the network to use HttpURLConnection as the HTTP client.
+        network = new BasicNetwork(new HurlStack());
+        //Instantiate the RequestQueue with the cache and network.
+        mRequestQueue = new RequestQueue(cache, network);
+        //Start the queue
+        mRequestQueue.start();
+        // Initialize a new JsonArrayRequest instance
+        jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                //ip de la maquina, cel y compu deben estar en misma red
+                "https://beach-finder.herokuapp.com/users.json",
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        // Do something with response
+                        // Process the JSON
+                        Log.d("mop",response.toString());
+                        try{
+                            // Loop through the array elements
+                            for(int i=0;i<response.length();i++){
+                                // Get current json object
+                                JSONObject user = response.getJSONObject(i);
+                                //lista donde sera guardada la info
+                                ArrayList<String> json_user = new ArrayList<String>();
+                                String id = user.getString("id");
+                                String name = user.getString("name");
+                                String last_name = user.getString("last_name");
+                                String nationality = user.getString("nationality");
+                                String profile_picture = user.getString("profile_picture");
+                                String phone_number = user.getString("phone_number");
+                                String email = user.getString("email");
+                                String password = user.getString("password");
+                                String location = user.getString("location");
+
+                                json_user.add(id);
+                                json_user.add(name);
+                                json_user.add(last_name);
+                                json_user.add(nationality);
+                                json_user.add(profile_picture);
+                                json_user.add(phone_number);
+                                json_user.add(email);
+                                json_user.add(password);
+                                json_user.add(location);
+
+                                all_json_users.add(json_user);
+                                //Actualizar todos los credenciales para el login
+                                USER_CREDENTIALS.add(json_user.get(6)+":"+json_user.get(7));
+                                Log.d("USERS-JSON:",USER_CREDENTIALS.get(i));
+                            }
+                            /*//Actualizar todos los credenciales
+                            int cont=0;
+                            for (ArrayList<ArrayList<>> userTemp :all_json_users)
+                            {
+                                USER_CREDENTIALS[cont]=userTemp.get(6)+":"+userTemp.get(7);
+                                Log.d("USERS-JSON:",USER_CREDENTIALS[cont]);
+                                cont++;
+                            }*/
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        // Do something when error occurred
+                        Log.d("Error","No pudo entrar al API /users");
+                    }
+                }
+
+        );
+
+        SystemClock.sleep(3000);
+        // Adding request to request queue
+        mRequestQueue.add(jsonArrayRequest);
+
+
+
+
+//-------------------- FIN Bloque para bajar users de API
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -366,7 +484,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-
+            Boolean login=false;
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
@@ -374,16 +492,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
+            for (int i=0; i<USER_CREDENTIALS.size();i++) {
+                String[] pieces = USER_CREDENTIALS.get(i).split(":");
+                if (pieces[0].equals(mEmail) && pieces[1].equals(mPassword) ) {
                     // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+                    login=true;
+                    break;
+                    //return true;
+
                 }
             }
 
             // TODO: register the new account here.
-            return true;
+            return login;
         }
 
         @Override
@@ -399,6 +520,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mPasswordView.requestFocus();
             }
         }
+
+
 
         @Override
         protected void onCancelled() {
