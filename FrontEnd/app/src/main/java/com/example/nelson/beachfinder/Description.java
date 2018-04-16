@@ -16,8 +16,12 @@ import android.view.MenuItem;
 
 import com.facebook.login.LoginManager;
 
+import java.util.ArrayList;
+
 public class Description extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ArrayList<String> chosen_beach_info = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

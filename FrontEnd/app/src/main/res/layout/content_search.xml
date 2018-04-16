@@ -22,11 +22,11 @@
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="match_parent"
-                android:layout_height="255dp"
+                android:layout_height="285dp"
                 android:layout_marginBottom="46dp"
                 android:contentDescription="@string/Image_description"
                 android:paddingTop="50dp"
-                app:srcCompat="@drawable/palmera_icon" />
+                app:srcCompat="@drawable/search_icon_yes" />
 
             <AutoCompleteTextView
                 android:id="@+id/auto_comp_text"

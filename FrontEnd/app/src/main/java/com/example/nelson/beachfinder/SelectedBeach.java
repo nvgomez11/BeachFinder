@@ -120,7 +120,8 @@ public class SelectedBeach extends AppCompatActivity
     }
 
     public void go_pictures_activity(View view){
-        Intent intent = new Intent(this,Pictures.class);
+        Intent intent = new Intent(getApplicationContext(),Pictures.class);
+        intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
         startActivity(intent);
     }
     public void go_comments_activity(View view){
@@ -129,7 +130,8 @@ public class SelectedBeach extends AppCompatActivity
     }
 
     public void go_description_activity(View view){
-        Intent intent = new Intent(this,Description.class);
+        Intent intent = new Intent(getApplicationContext(),Description.class);
+        intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
         startActivity(intent);
     }
 }

@@ -46,9 +46,8 @@ public class SearchActivity extends AppCompatActivity
     DrawerLayout drawer;
     NavigationView navigationView;
     Toolbar toolbar=null;
-    AutoCompleteTextView txtView;
+    AutoCompleteTextView txtField;
     static String beachNameWritten = "";
-
 
     static ArrayList<ArrayList> all_json_beaches = new ArrayList<ArrayList>();
     RequestQueue mRequestQueue;
@@ -63,20 +62,15 @@ public class SearchActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-
+        all_json_beaches.clear();
+        txtField=findViewById(R.id.auto_comp_text);
+        txtField.setText("");
+        Button search_button = findViewById(R.id.button_search);
 
         //-------------------------------------
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,10 +82,6 @@ public class SearchActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //-------------------------------------
-
-        Button search_button = findViewById(R.id.button_search);
-
-
 
         //request_json(activityName);
         //Instantiate the cache
@@ -236,18 +226,18 @@ public class SearchActivity extends AppCompatActivity
     }
 
     public void goBeachListActivity(View view){
-        txtView = findViewById(R.id.auto_comp_text);
-        beachNameWritten = String.valueOf(txtView.getText());
+        txtField = findViewById(R.id.auto_comp_text);
+        beachNameWritten = String.valueOf(txtField.getText());
 
-        if( txtView.getText().toString().trim().equals(""))
+        if( txtField.getText().toString().trim().equals(""))
         {
-            txtView.setError( "Beach name is required!" );
+            txtField.setError( "Beach name is required!" );
 
-            txtView.setHint("Type a beach name");
+            txtField.setHint("Type a beach name");
         } else {
             Intent intent = new Intent(this,beachList.class);
             intent.putExtra("activity_name","search");
-            intent.putExtra("beachWritten_name", txtView.getText().toString());
+            intent.putExtra("beachWritten_name", txtField.getText().toString());
             AdvancedSearch.data_selected_list.clear();
             AdvancedSearch.data_selected_list.add("Any");
             AdvancedSearch.data_selected_list.add("Any");
