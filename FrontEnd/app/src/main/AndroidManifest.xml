@@ -90,7 +90,8 @@
         <activity
             android:name=".NewUser"
             android:label="@string/title_activity_new_user"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>

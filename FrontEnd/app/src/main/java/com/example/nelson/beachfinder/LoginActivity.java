@@ -99,11 +99,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     Network network;
     JsonArrayRequest jsonArrayRequest;
     //---------
-    private ArrayList<String> USER_CREDENTIALS=new ArrayList<>(); //No mas de 50 usuario en arreglo estatico
+    private static ArrayList<String> USER_CREDENTIALS=new ArrayList<>(); //No mas de 50 usuario en arreglo estatico
 
 
 
-
+    public static ArrayList<String> getUSER_CREDENTIALS()
+    {
+        return USER_CREDENTIALS;
+    }
     public void clickNewUser(View view)
     {
         Intent intent = new Intent(this, NewUser.class);

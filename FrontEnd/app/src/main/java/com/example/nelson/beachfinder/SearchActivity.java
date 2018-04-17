@@ -211,6 +211,8 @@ public class SearchActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_profile) {
+            Intent intent = new Intent(this,ProfileActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_about) {
 
