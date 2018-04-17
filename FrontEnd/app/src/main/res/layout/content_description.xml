@@ -8,4 +8,39 @@
     tools:context="com.example.nelson.beachfinder.Description"
     tools:showIn="@layout/app_bar_description">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/titulo_playa"
+            android:layout_width="368dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="29dp"
+            android:fontFamily="@font/roboto"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <EditText
+            android:id="@+id/text_description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/titulo_playa"
+            android:layout_marginTop="13dp"
+            android:ems="10"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:lineSpacingExtra="12sp"
+            android:text="hola yo soy Nelson"
+            android:textAlignment="textStart"
+            android:textSize="24sp" />
+    </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>

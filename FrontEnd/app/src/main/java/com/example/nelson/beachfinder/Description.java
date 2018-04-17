@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
 
@@ -47,6 +48,19 @@ public class Description extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        ///////////////////////////////
+        Intent intent = getIntent();
+        chosen_beach_info = intent.getStringArrayListExtra("selected_beach");
+
+        TextView textView = findViewById(R.id.titulo_playa);
+        TextView description = findViewById(R.id.text_description);
+
+        String beach_title = chosen_beach_info.get(1);
+        String description_text = chosen_beach_info.get(4);
+
+        textView.setText(beach_title);
+        description.setText(description_text);
     }
 
     @Override

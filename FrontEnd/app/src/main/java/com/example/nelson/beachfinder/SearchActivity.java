@@ -3,6 +3,7 @@ package com.example.nelson.beachfinder;
 import android.content.Intent;
 import android.media.MediaCas;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -205,6 +206,8 @@ public class SearchActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_map) {
             Intent intent = new Intent(this,MapsActivity.class);
+            startActivity(intent);
+
             startActivity(intent);
 
         } else if (id == R.id.nav_profile) {
