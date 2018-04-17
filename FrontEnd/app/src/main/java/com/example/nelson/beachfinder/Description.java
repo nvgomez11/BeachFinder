@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.method.KeyListener;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -61,6 +62,11 @@ public class Description extends AppCompatActivity
 
         textView.setText(beach_title);
         description.setText(description_text);
+
+        //hace el plain text no editable
+        description.setTag(textView.getKeyListener());
+        description.setKeyListener(null);
+        description.setKeyListener((KeyListener) description.getTag());
     }
 
     @Override
