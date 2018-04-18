@@ -187,6 +187,8 @@ public class beachList extends AppCompatActivity
             String beachName_inJson = String.valueOf(beach.get(1));
             String beachName_loweCase = beachName.toLowerCase();
             String beachName_inJson_loweCase = beachName_inJson.toLowerCase();
+            Log.d("bname",beachName_loweCase);
+            Log.d("bname",beachName_inJson_loweCase);
             if(beachName_loweCase.compareTo(beachName_inJson_loweCase)==0){
                 all_beaches_apply.add(beach);
                 break;

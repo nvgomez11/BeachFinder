@@ -78,6 +78,8 @@ public class Comments extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_profile) {
+            Intent intent = new Intent(this,Profile.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_about) {
 

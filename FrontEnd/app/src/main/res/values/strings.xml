@@ -81,5 +81,6 @@
     <string name="title_activity_description">Description</string>
     <string name="title_activity_advanced_search">AdvancedSearch</string>
     <string name="title_activity_new_user">NewUser</string>
+    <string name="title_activity_profile">Profile</string>
 
 </resources>

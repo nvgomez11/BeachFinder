@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,30 +13,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class AdvancedSearch extends AppCompatActivity
+public class Profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    static ArrayList<String> data_selected_list = new ArrayList<String>();;
-    ArrayList<RadioGroup> radioGroup_list = new ArrayList<RadioGroup>();
-    String location,sandColor,tide,vegetation;
-    int swimming,nightlife,camping,shade, snorkeling,protectedArea,clearWater;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_advanced_search);
+        setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -48,30 +39,12 @@ public class AdvancedSearch extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //--------------------------------------------------
 
-        //------------------------------------
-        RadioGroup radioGroup1 = findViewById(R.id.radioGroup1);
-        radioGroup_list.add(radioGroup1);
-        RadioGroup radioGroup2 = findViewById(R.id.radioGroup2);
-        radioGroup_list.add(radioGroup2);
-        RadioGroup radioGroup3 = findViewById(R.id.radioGroup3);
-        radioGroup_list.add(radioGroup3);
-        RadioGroup radioGroup4 = findViewById(R.id.radioGroup4);
-        radioGroup_list.add(radioGroup4);
-        RadioGroup radioGroup5 = findViewById(R.id.radioGroup5);
-        radioGroup_list.add(radioGroup5);
-        RadioGroup radioGroup6 = findViewById(R.id.radioGroup6);
-        radioGroup_list.add(radioGroup6);
-        RadioGroup radioGroup7 = findViewById(R.id.radioGroup7);
-        radioGroup_list.add(radioGroup7);
-        RadioGroup radioGroup8 = findViewById(R.id.radioGroup8);
-        radioGroup_list.add(radioGroup8);;
-        RadioGroup radioGroup9 = findViewById(R.id.radioGroup9);
-        radioGroup_list.add(radioGroup9);
-        RadioGroup radioGroup10 = findViewById(R.id.radioGroup10);
-        radioGroup_list.add(radioGroup10);
-        RadioGroup radioGroup11 = findViewById(R.id.radioGroup11);
-        radioGroup_list.add(radioGroup11);
+        ArrayList<String> datos=LoginActivity.getUSER_CREDENTIALS();
+        TextView textView= findViewById(R.id.textViewName);
+        textView.setText("Name: "+datos.get(1));
+
     }
 
     @Override
@@ -105,9 +78,12 @@ public class AdvancedSearch extends AppCompatActivity
             Intent intent = new Intent(this,MapsActivity.class);
             startActivity(intent);
 
+            startActivity(intent);
+
         } else if (id == R.id.nav_profile) {
             Intent intent = new Intent(this,Profile.class);
             startActivity(intent);
+
         } else if (id == R.id.nav_about) {
 
         } else if (id == R.id.nav_sign_out) {
@@ -123,22 +99,4 @@ public class AdvancedSearch extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    public void goBeachListActivity(View view){
-        data_selected_list.clear();
-        for(int i=0;i<radioGroup_list.size();i++){
-            int radio_btn_id = radioGroup_list.get(i).getCheckedRadioButtonId();
-            View radioButton = radioGroup_list.get(i).findViewById(radio_btn_id);
-            int radioId = radioGroup_list.get(i).indexOfChild(radioButton);
-            RadioButton btn = (RadioButton) radioGroup_list.get(i).getChildAt(radioId);
-            String selection = (String) btn.getText();
-            data_selected_list.add(selection);
-        }
-        Intent intent = new Intent(this,beachList.class);
-        intent.putExtra("activity_name","advanced");
-        startActivity(intent);
-    }
-
-
-
 }
