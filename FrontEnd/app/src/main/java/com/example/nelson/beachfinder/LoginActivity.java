@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     JsonArrayRequest jsonArrayRequest;
     //---------
     private static ArrayList<String> USER_CREDENTIALS=new ArrayList<>(); //No mas de 50 usuario en arreglo estatico
-
+    //int idActiveUser=0;
 
 
     public static ArrayList<String> getUSER_CREDENTIALS()
@@ -500,6 +500,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 if (pieces[0].equals(mEmail) && pieces[1].equals(mPassword) ) {
                     // Account exists, return true if the password matches.
                     login=true;
+                    //idActiveUser=i;
                     break;
                     //return true;
 

@@ -69,6 +69,6 @@ class BeachesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def beach_params
-      params.require(:beach).permit(:beach_name, :location, :sand_color, :description, :main_image, :secondary_image, :latitude, :longitude, :wave_type, :snorkeling, :swimming, :shade, :night_life, :camping_zone, :protected_area, :cristal_water, :vegetation)
+      params.require(:beach).permit(:beach_name, :location, :sand_color, :description, :main_image, :secondary_image, :latitude, :longitude, :wave_type, :snorkeling, :swimming, :shade, :night_life, :camping_zone, :protected_area, :cristal_water, :vegetation, :comments)
     end
 end

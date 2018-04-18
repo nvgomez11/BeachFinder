@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180412075407) do
+ActiveRecord::Schema.define(version: 20180418071830) do
 
   create_table "beaches", force: :cascade do |t|
     t.string   "beach_name"
@@ -30,6 +30,20 @@ ActiveRecord::Schema.define(version: 20180412075407) do
     t.boolean  "protected_area"
     t.boolean  "cristal_water"
     t.string   "vegetation"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "comments"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "last_name"
+    t.string   "nationality"
+    t.string   "profile_picture"
+    t.string   "phone_number"
+    t.string   "email"
+    t.string   "password"
+    t.text     "location"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
