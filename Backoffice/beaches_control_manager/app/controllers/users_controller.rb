@@ -71,9 +71,10 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      #params.permit(:name, :last_name, :nationality, :profile_picture, :phone_number, :email, :password, :location)
-      #Así estaba por default, pero no permite agregar POST
-      params.require(:user).permit(:name, :last_name, :nationality, :profile_picture, :phone_number, :email, :password, :location)
+      #Asi permite hacer request pero no funcionan los forms generado por Rails scaffold
       params.permit(:name, :last_name, :nationality, :profile_picture, :phone_number, :email, :password, :location)
+      
+      #Así estaba por default, pero no permite agregar hacer Request desde JSON
+      #params.require(:user).permit(:name, :last_name, :nationality, :profile_picture, :phone_number, :email, :password, :location)
     end
 end

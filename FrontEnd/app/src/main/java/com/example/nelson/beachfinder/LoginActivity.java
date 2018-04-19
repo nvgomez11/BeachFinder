@@ -92,14 +92,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     CallbackManager callbackManager;
 
 
-    //---------
+    //---------REQUEST -->GET
     static ArrayList<ArrayList> all_json_users = new ArrayList<ArrayList>();
     RequestQueue mRequestQueue;
     Cache cache;
     Network network;
     JsonArrayRequest jsonArrayRequest;
     //---------
-    private static ArrayList<String> USER_CREDENTIALS=new ArrayList<>(); //No mas de 50 usuario en arreglo estatico
+    private static ArrayList<String> USER_CREDENTIALS=new ArrayList<>();
     //int idActiveUser=0;
 
 
