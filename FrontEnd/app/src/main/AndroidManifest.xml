@@ -94,6 +94,21 @@
         <activity
             android:name=".Profile"
             android:label="@string/title_activity_profile"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Route"
+            android:label="@string/title_activity_route" />
+        <activity
+            android:name=".Weather"
+            android:label="@string/title_activity_weather"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".About_section"
+            android:label="@string/title_activity_about_section"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".About_selected"
+            android:label="@string/title_activity_about_selected"
             android:theme="@style/AppTheme"></activity>
     </application>
 

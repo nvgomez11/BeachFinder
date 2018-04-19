@@ -97,6 +97,8 @@ public class SelectedBeach extends AppCompatActivity
             Intent intent = new Intent(this,Profile.class);
             startActivity(intent);
         } else if (id == R.id.nav_about) {
+            Intent intent = new Intent(this,About_section.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_sign_out) {
             //closes facebook session de facebook
@@ -124,6 +126,18 @@ public class SelectedBeach extends AppCompatActivity
 
     public void go_description_activity(View view){
         Intent intent = new Intent(getApplicationContext(),Description.class);
+        intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
+        startActivity(intent);
+    }
+
+    public void go_route_activity(View view){
+        Intent intent = new Intent(getApplicationContext(),Route.class);
+        intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
+        startActivity(intent);
+    }
+
+    public void go_weather_activity(View view){
+        Intent intent = new Intent(getApplicationContext(),Weather.class);
         intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
         startActivity(intent);
     }

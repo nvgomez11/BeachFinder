@@ -47,8 +47,11 @@
                     android:layout_marginBottom="66dp"
                     android:layout_marginStart="50dp"
                     android:layout_weight="1"
+                    android:background="@drawable/button_border"
+                    android:hapticFeedbackEnabled="false"
                     android:onClick="goBeachListActivity"
                     android:text="@string/search_button"
+                    android:textAllCaps="false"
                     tools:layout_editor_absoluteX="148dp"
                     tools:layout_editor_absoluteY="379dp" />
 
@@ -58,8 +61,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="50dp"
                     android:layout_weight="1"
+                    android:background="@drawable/button_border"
                     android:onClick="goAdvancedSearchActivity"
-                    android:text="@string/Advanced" />
+                    android:text="@string/Advanced"
+                    android:textAllCaps="false" />
             </LinearLayout>
         </LinearLayout>
 
