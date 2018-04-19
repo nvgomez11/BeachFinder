@@ -84,5 +84,7 @@
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_route">Map</string>
     <string name="title_activity_weather">Weather</string>
+    <string name="title_activity_about_section">About_section</string>
+    <string name="title_activity_about_selected">About_selected</string>
 
 </resources>

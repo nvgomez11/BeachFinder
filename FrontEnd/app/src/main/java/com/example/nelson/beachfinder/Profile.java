@@ -85,6 +85,8 @@ public class Profile extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_about) {
+            Intent intent = new Intent(this,About_section.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_sign_out) {
             //closes facebook session de facebook

@@ -568,8 +568,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/button_border"
                 android:onClick="goBeachListActivity"
-                android:text="@string/search_button" />
+                android:text="@string/search_button"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 
