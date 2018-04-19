@@ -77,7 +77,7 @@ public class NewUser extends AppCompatActivity {
         }*/
         RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
 
-        String url = "http://localhost:3000/users";
+        String url = "https://proyecto1-pruebas.herokuapp.com/users";
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -93,6 +93,7 @@ public class NewUser extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> MyData = new HashMap<String, String>();
                 MyData.put("name", "FUNKAAAAAA"); //Add the data you'd like to send to the server.
+                MyData.put("last_name", "MANNNNNNNNN");
                 return MyData;
             }
         };
