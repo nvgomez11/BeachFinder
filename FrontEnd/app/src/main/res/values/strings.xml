@@ -82,5 +82,7 @@
     <string name="title_activity_advanced_search">AdvancedSearch</string>
     <string name="title_activity_new_user">NewUser</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_route">Map</string>
+    <string name="title_activity_weather">Weather</string>
 
 </resources>

@@ -127,4 +127,16 @@ public class SelectedBeach extends AppCompatActivity
         intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
         startActivity(intent);
     }
+
+    public void go_route_activity(View view){
+        Intent intent = new Intent(getApplicationContext(),Route.class);
+        intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
+        startActivity(intent);
+    }
+
+    public void go_weather_activity(View view){
+        Intent intent = new Intent(getApplicationContext(),Weather.class);
+        intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
+        startActivity(intent);
+    }
 }

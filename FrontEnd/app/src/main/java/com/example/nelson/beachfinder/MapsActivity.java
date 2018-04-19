@@ -40,8 +40,6 @@ import java.util.ArrayList;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
 
-    ArrayList<String> titlesArray = new ArrayList<String>();
-
     LocationManager locationManager;
     LocationListener locationListener;
 
@@ -72,14 +70,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
-
         // Do other setup activities here too, as described elsewhere in this tutorial.
 
         // Build the Play services client for use by the Fused Location Provider and the Places API.
         // Use the addApi() method to request the Google Places API and the Fused Location Provider.
 
     }
-
 
     /**
      * Manipulates the map once available.
@@ -104,15 +100,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(costa_rica, zoomlevel));
 
 
-
- /*     //add markers
-        LatLng tamarindo_beach = new LatLng(10.297445,-85.832117);
-        mMap.addMarker(new MarkerOptions().position(tamarindo_beach).title("Tamarindo beach"));
-
-        LatLng jaco_beach = new LatLng( 9.62024,-84.621749);
-        mMap.addMarker(new MarkerOptions().position(jaco_beach).title("Jaco Beach"));*/
-        mMap.setOnInfoWindowClickListener(getInfoWindowClickListener());
-
+        //add markers
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
@@ -133,7 +121,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     lat_long_beach = new LatLng(Float.parseFloat(latitude), Float.parseFloat(longitude));
                     Marker mLat_long_beach = mMap.addMarker(new MarkerOptions().position(lat_long_beach).title(beachName));
                     mLat_long_beach.setTag(id);
-                    titlesArray.add(mLat_long_beach.getTitle());
                 }
             }
 
@@ -165,6 +152,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(location).title("You're here"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
         }
+
+        mMap.setOnInfoWindowClickListener(getInfoWindowClickListener());
     }
 
 

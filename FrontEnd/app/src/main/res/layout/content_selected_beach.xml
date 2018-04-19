@@ -50,8 +50,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textAllCaps="false"
+                    android:onClick="go_route_activity"
                     android:text="@string/Button_route_selected_beach"
+                    android:textAllCaps="false"
                     android:typeface="normal" />
 
                 <Button
@@ -106,8 +107,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textAllCaps="false"
-                    android:text="@string/Button_Weather_selected_beach" />
+                    android:onClick="go_weather_activity"
+                    android:text="@string/Button_Weather_selected_beach"
+                    android:textAllCaps="false" />
             </LinearLayout>
         </LinearLayout>
 
