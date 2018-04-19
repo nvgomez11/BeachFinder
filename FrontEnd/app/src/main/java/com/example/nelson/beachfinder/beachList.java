@@ -56,6 +56,8 @@ public class beachList extends AppCompatActivity
     ArrayList<String> beaches_descriptions = new ArrayList<String>();
     ArrayList<String> beaches_icons = new ArrayList<String>();
 
+    TextView txt_empty;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +75,10 @@ public class beachList extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //------------------------------------
+
+        txt_empty = findViewById(R.id.txt_empty);
+        txt_empty.setVisibility(View.INVISIBLE);
+        
         GridView gridView  = findViewById(R.id.grid_view);
         Intent intent = getIntent();
         String activityName = intent.getStringExtra("activity_name");
@@ -124,6 +130,8 @@ public class beachList extends AppCompatActivity
                 Log.d("oso",listita.get(j));
             }
         }
+
+
     }
 
     @Override
@@ -251,6 +259,9 @@ public class beachList extends AppCompatActivity
     }
 
     void fill_titles_desc_icon(){
+        if(all_beaches_apply.isEmpty()){
+            txt_empty.setVisibility(View.VISIBLE);
+        }
         for(int i=0;i<all_beaches_apply.size();i++){
             ArrayList beach = all_beaches_apply.get(i);
             String title = beach.get(1).toString();

@@ -8,6 +8,16 @@
     tools:context="com.example.nelson.beachfinder.beachList"
     tools:showIn="@layout/app_bar_beach_list">
 
+    <TextView
+        android:id="@+id/txt_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:gravity="center_vertical|center"
+        android:text="No beaches were found. Please try again."
+        android:textSize="18sp"
+        android:visibility="invisible" />
+
     <GridView
         android:id="@+id/grid_view"
         android:layout_width="match_parent"
