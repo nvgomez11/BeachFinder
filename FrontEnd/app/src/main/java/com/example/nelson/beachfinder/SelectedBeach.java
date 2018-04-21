@@ -1,9 +1,11 @@
 package com.example.nelson.beachfinder;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -30,6 +32,8 @@ public class SelectedBeach extends AppCompatActivity
 
         ArrayList<String> chosen_beach_info = new ArrayList<String>();
         MixpanelAPI mixpanel;
+        String lat;
+        String longi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,11 @@ public class SelectedBeach extends AppCompatActivity
         //set info
         Picasso.get().load(url).into(imageView);
         textView.setText(title);
+
+        lat = chosen_beach_info.get(7);
+        longi = chosen_beach_info.get(8);
+        Log.d("tata",lat);
+        Log.d("tata",longi);
 
 
         mixpanel =
@@ -168,8 +177,11 @@ public class SelectedBeach extends AppCompatActivity
             e.printStackTrace();
         }
 
-        Intent intent = new Intent(getApplicationContext(),Route.class);
-        intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
+        //Intent intent = new Intent(getApplicationContext(),Route.class);
+        //intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
+        //startActivity(intent);
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                Uri.parse("http://maps.google.com/maps?daddr="+lat+","+longi));
         startActivity(intent);
     }
 
