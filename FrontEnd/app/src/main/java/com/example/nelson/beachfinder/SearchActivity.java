@@ -26,6 +26,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -172,6 +174,9 @@ public class SearchActivity extends AppCompatActivity
         SystemClock.sleep(3000);
         // Adding request to request queue
         mRequestQueue.add(jsonArrayRequest);
+
+        MixpanelAPI mixpanel =
+                MixpanelAPI.getInstance(getApplicationContext(), "7794ef33d0569cd4c3041a629abcd1ab");
 
 
 

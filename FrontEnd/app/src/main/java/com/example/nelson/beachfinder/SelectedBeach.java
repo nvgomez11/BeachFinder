@@ -16,9 +16,12 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,7 @@ public class SelectedBeach extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
         ArrayList<String> chosen_beach_info = new ArrayList<String>();
+        MixpanelAPI mixpanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,9 @@ public class SelectedBeach extends AppCompatActivity
         Picasso.get().load(url).into(imageView);
         textView.setText(title);
 
+
+        mixpanel =
+                MixpanelAPI.getInstance(getApplicationContext(), "7794ef33d0569cd4c3041a629abcd1ab");
 
     }
 
@@ -115,29 +122,67 @@ public class SelectedBeach extends AppCompatActivity
     }
 
     public void go_pictures_activity(View view){
+        JSONObject props = new JSONObject();
+        try {
+            props.put("Button selected","pictures");
+            mixpanel.track("Button pictures selected", props);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Intent intent = new Intent(getApplicationContext(),Pictures.class);
         intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
         startActivity(intent);
     }
     public void go_comments_activity(View view){
+        JSONObject props = new JSONObject();
+        try {
+            props.put("Button selected","comments");
+            mixpanel.track("Button comments selected", props);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Intent intent = new Intent(this,Comments.class);
         intent.putExtra("selected_beach",chosen_beach_info.get(18)); //Pasan la lista de comentarios al activiry comentarios
         startActivity(intent);
     }
 
     public void go_description_activity(View view){
+        JSONObject props = new JSONObject();
+        try {
+            props.put("Button selected","description");
+            mixpanel.track("Button description selected", props);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Intent intent = new Intent(getApplicationContext(),Description.class);
         intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
         startActivity(intent);
     }
 
     public void go_route_activity(View view){
+        JSONObject props = new JSONObject();
+        try {
+            props.put("Button selected","route");
+            mixpanel.track("Button route selected", props);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Intent intent = new Intent(getApplicationContext(),Route.class);
         intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
         startActivity(intent);
     }
 
     public void go_weather_activity(View view){
+        JSONObject props = new JSONObject();
+        try {
+            props.put("Button selected","weather");
+            mixpanel.track("Button weather selected", props);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         Intent intent = new Intent(getApplicationContext(),Weather.class);
         intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
         startActivity(intent);

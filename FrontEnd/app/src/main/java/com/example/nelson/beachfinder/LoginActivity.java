@@ -49,7 +49,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -257,6 +257,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
             }
         });
+
+        String projectToken = "7794ef33d0569cd4c3041a629abcd1ab"; // e.g.: "1ef7e30d2a58d27f4b90c42e31d6d7ad"
+        MixpanelAPI mixpanel = MixpanelAPI.getInstance(this, projectToken);
 
     }
     //facebook
