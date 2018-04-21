@@ -62,9 +62,8 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <activity
-            android:name=".MapsActivity"
-             />
+
+        <activity android:name=".MapsActivity" />
         <activity
             android:name=".SelectedBeach"
             android:theme="@style/AppTheme" />
@@ -86,9 +85,7 @@
         <activity
             android:name=".Profile"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Route"
-            />
+        <activity android:name=".Route" />
         <activity
             android:name=".Weather"
             android:theme="@style/AppTheme" />
@@ -97,6 +94,10 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".About_selected"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".BORRAR"
+            android:label="@string/title_activity_borrar"
             android:theme="@style/AppTheme"></activity>
     </application>
 

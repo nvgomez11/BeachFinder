@@ -86,5 +86,6 @@
     <string name="title_activity_weather">Weather</string>
     <string name="title_activity_about_section">About_section</string>
     <string name="title_activity_about_selected">About_selected</string>
+    <string name="title_activity_borrar">BORRAR</string>
 
 </resources>
