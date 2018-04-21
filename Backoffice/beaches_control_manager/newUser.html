@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Beaches</title>
+    <title>Users</title>
 
     <!-- Bootstrap -->
   <!--===============================================================================================-->  
@@ -68,47 +68,40 @@
   <h1>Adding new beach</h1>
           <form id="form" action="" method="post">
           <div class="form-group">
-            <label for="exampleInputEmail1" >Beach name</label>
-            <input type="text" class="form-control" id="name" placeholder="">
+            <label for="exampleInputEmail1" >User name</label>
+            <input type="text" class="form-control" name="name" placeholder="">
           </div>
           
           <div class="form-group">
-            <label for="exampleInputEmail1">Location</label>
-            <input type="text" class="form-control" id="location" placeholder="">
+            <label for="exampleInputEmail1">Last name</label>
+            <input type="text" class="form-control" name="last_name" placeholder="">
           </div>
 
           <div class="form-group">
-            <label for="exampleInputEmail1" >Sand color</label>
-            <input type="text" class="form-control" id="sand_color" placeholder="">
+            <label for="exampleInputEmail1" >Nationality</label>
+            <input type="text" class="form-control" name="nationality" placeholder="">
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1" >description</label>
-            <input type="text" class="form-control" id="description" placeholder="">
+            <label for="exampleInputEmail1" >Profile picture</label>
+            <input type="text" class="form-control" name="profile_picture" placeholder="">
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">Main image</label>
-            <input type="text" class="form-control" id="main_image" placeholder=" ">
+            <label for="exampleInputEmail1">Phone number  </label>
+            <input type="text" class="form-control" name="phone_number" placeholder=" ">
           </div> 
           <div class="form-group">
-            <label for="exampleInputEmail1">Second image</label>
-            <input type="text" class="form-control" id="second_image" placeholder=" ">
+            <label for="exampleInputEmail1">Email</label>
+            <input type="text" class="form-control" name="email" placeholder=" ">
           </div> 
           <div class="form-group">
-            <label for="exampleInputEmail1">Latitude</label>
-            <input type="text" class="form-control" id="latitude" placeholder=" ">
+            <label for="exampleInputEmail1">Password</label>
+            <input type="password" class="form-control" name="password" placeholder=" ">
           </div> 
           <div class="form-group">
-            <label for="exampleInputEmail1">Longitude</label>
-            <input type="text" class="form-control" id="longitude" placeholder=" ">
+            <label for="exampleInputEmail1">Location</label>
+            <input type="text" class="form-control" name="location" placeholder=" ">
           </div> 
-          <div class="form-group">
-            <label for="exampleInputEmail1">Wave type</label>
-            <input type="text" class="form-control" id="wave_type" placeholder=" ">
-          </div> 
-          <div class="form-group">
-            <label for="exampleInputEmail1">Snorkeling </label>
-            <input type="checkbox" class="form-control" id="snorkeling " placeholder="">
-          </div>
+  
 
       
           <input id="submit" type="button" name="submit" value="submit">
@@ -129,7 +122,7 @@
         $("#submit").on('click', function(){
             // send ajax
             $.ajax({
-                url: 'https://proyecto1-pruebas.herokuapp.com/beaches', // url where to submit the request
+                url: 'https://proyecto1-pruebas.herokuapp.com/users', // url where to submit the request
                 type : "POST", // type of action POST || GET
                 dataType : 'json', // data type
                 data : $("#form").serialize(), // post data || get data

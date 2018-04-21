@@ -1,5 +1,6 @@
 class BeachesController < ApplicationController
   before_action :set_beach, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /beaches
   # GET /beaches.json
@@ -69,6 +70,8 @@ class BeachesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def beach_params
-      params.require(:beach).permit(:beach_name, :location, :sand_color, :description, :main_image, :secondary_image, :latitude, :longitude, :wave_type, :snorkeling, :swimming, :shade, :night_life, :camping_zone, :protected_area, :cristal_water, :vegetation, :comments)
+      params.permit(:beach_name, :location, :sand_color, :description, :main_image, :secondary_image, :latitude, :longitude, :wave_type, :snorkeling, :swimming, :shade, :night_life, :camping_zone, :protected_area, :cristal_water, :vegetation, :comments)
+      #Así estaba
+      #params.require(:beach).permit(:beach_name, :location, :sand_color, :description, :main_image, :secondary_image, :latitude, :longitude, :wave_type, :snorkeling, :swimming, :shade, :night_life, :camping_zone, :protected_area, :cristal_water, :vegetation, :comments)
     end
 end
