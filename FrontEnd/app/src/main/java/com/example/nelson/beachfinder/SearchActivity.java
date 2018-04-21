@@ -57,6 +57,10 @@ public class SearchActivity extends AppCompatActivity
     Cache cache;
     Network network;
     JsonArrayRequest jsonArrayRequest;
+    public String datosUsuarioEnSesion;
+
+    int idActiveUser=0;
+
 
 
 
@@ -86,6 +90,12 @@ public class SearchActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         //-------------------------------------
 
+        //Obtener usuario en sesion
+        Intent intent1=new Intent();
+        datosUsuarioEnSesion=intent1.getStringExtra("active_user",);
+        Log.d("ACTIVE-uSEr",datosUsuarioEnSesion);
+
+        //
         //request_json(activityName);
         //Instantiate the cache
         cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -99,7 +109,7 @@ public class SearchActivity extends AppCompatActivity
         jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 //ip de la maquina, cel y compu deben estar en misma red
-                "https://proyecto1-pruebas.herokuapp.com/beaches.json",
+                "https://beach-finder.herokuapp.com/beaches.json",
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -219,6 +229,7 @@ public class SearchActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_profile) {
             Intent intent = new Intent(this,Profile.class);
+            intent.putExtra("active_userData",datosUsuarioEnSesion);
             startActivity(intent);
 
         } else if (id == R.id.nav_about) {

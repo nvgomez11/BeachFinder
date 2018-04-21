@@ -100,17 +100,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     JsonArrayRequest jsonArrayRequest;
     //---------
     private static ArrayList<String> USER_CREDENTIALS=new ArrayList<>();
+    public static ArrayList<String> USER_Data=new ArrayList<>();
+    int idActiveUser=0;  //Id del usuario que inicio sesion basado en lo campo del API
     //int idActiveUser=0;
 
-
-    public static ArrayList<String> getUSER_CREDENTIALS()
-    {
-        return USER_CREDENTIALS;
+    public  int getIdActiveUser(){
+        return idActiveUser;
     }
+
     public void clickNewUser(View view)
     {
         Intent intent = new Intent(this, NewUser.class);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
         startActivity(intent);
     }
 
@@ -187,6 +188,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 all_json_users.add(json_user);
                                 //Actualizar todos los credenciales para el login
                                 USER_CREDENTIALS.add(json_user.get(6)+":"+json_user.get(7));
+                                USER_Data.add(json_user.get(1)+":"+json_user.get(2)+":"+json_user.get(4)+":"+json_user.get(5)+":"+json_user.get(6));
                                 Log.d("USERS-JSON:",USER_CREDENTIALS.get(i));
                             }
                             /*//Actualizar todos los credenciales
@@ -271,7 +273,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     //facebook
     private void goMainActivity(){
+
+        for (String i:USER_Data )
+        {
+           Log.d("USE--DATA;",i);
+        }
+
         Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("active_user",USER_Data.get(idActiveUser));
+        Log.d("USER V1",USER_Data.get(idActiveUser));
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -503,7 +513,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 if (pieces[0].equals(mEmail) && pieces[1].equals(mPassword) ) {
                     // Account exists, return true if the password matches.
                     login=true;
-                    //idActiveUser=i;
+                    idActiveUser=i;
                     break;
                     //return true;
 

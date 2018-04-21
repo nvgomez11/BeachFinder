@@ -61,9 +61,9 @@ public class Comments extends AppCompatActivity
         String comentarios = intent.getStringExtra("selected_beach");
 
 
-        String comentariosLista[]=comentarios.split(";");
+        String comentariosLista[]=comentarios.split("_");
         //En este momento comentarios del API tiene forma así:
-        //Autor:[Comentario;Autor2:Comentario2]
+        //[Autor:Comentario|Autor2:Comentario2]
 
         for (String comentario:comentariosLista) {
             String tempComent[]=comentario.split(":");

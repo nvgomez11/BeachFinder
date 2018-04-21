@@ -1,5 +1,6 @@
 package com.example.nelson.beachfinder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -64,7 +66,7 @@ public class NewUser extends AppCompatActivity {
         }*/
         RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
 
-        String url = "https://proyecto1-pruebas.herokuapp.com/users";
+        String url = "https://beach-finder.herokuapp.com/users";
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -93,6 +95,23 @@ public class NewUser extends AppCompatActivity {
 
 
 //-------------------- FIN Bloque para bajar users de API
+        Toast.makeText(this, "Your account has been created", Toast.LENGTH_SHORT).show();
+        final Intent intent = new Intent(this,LoginActivity.class);
+
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(Toast.LENGTH_LONG+1); // As I am using LENGTH_LONG in Toast
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        thread.start();
+
     }
 
     @Override
@@ -110,26 +129,6 @@ public class NewUser extends AppCompatActivity {
 
     }
 
-    private void sendPost() throws Exception {
 
-        String url = "http://localhost:3000/users";
-        URL obj = new URL(url);
-        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-
-        //add reuqest header
-        con.setRequestMethod("POST");
-        con.setRequestProperty("User-Agent", "Luis");
-        con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-
-        String urlParameters = "name=Pokemon&last_name=Rusell&nationality=Peruan&profile_picture=pthodfadsf.jpg";
-
-        // Send post request
-        con.setDoOutput(true);
-        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-        wr.writeBytes(urlParameters);
-        wr.flush();
-        wr.close();
-
-    }
 
 }

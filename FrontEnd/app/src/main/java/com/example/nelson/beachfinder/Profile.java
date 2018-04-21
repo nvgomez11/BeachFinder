@@ -40,10 +40,22 @@ public class Profile extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //--------------------------------------------------
+        Intent intent=new Intent();
+        String datosUsuario=intent.getStringExtra("active_userData");
+        String[] datosUser= datosUsuario.split(":");
+        //USER_Data.add(json_user.get(1)+":"+json_user.get(2)+":"+json_user.get(4)+":"+json_user.get(5)+":"+json_user.get(6));
+        TextView textViewName= findViewById(R.id.EditTextInput_name);
+        TextView textViewLastName= findViewById(R.id.EditTextInput_Lastname);
+        TextView textViewEmail= findViewById(R.id.EditTextInput_email);
+        TextView textViewNationality= findViewById(R.id.EditTextInput_nationality);
+        TextView textViewPhone= findViewById(R.id.EditTextInput_phone);
+        textViewName.setText(""+datosUser[0]);
+        textViewLastName.setText(""+datosUser[1]);
+        textViewNationality.setText(""+datosUser[2]);
+        textViewEmail.setText(""+datosUser[4]);
+        textViewPhone.setText(""+datosUser[5]);
 
-        ArrayList<String> datos=LoginActivity.getUSER_CREDENTIALS();
-        TextView textView= findViewById(R.id.textViewName);
-        textView.setText("Name: "+datos.get(1));
+
 
     }
 
