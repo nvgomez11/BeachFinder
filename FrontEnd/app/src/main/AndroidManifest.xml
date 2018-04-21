@@ -71,9 +71,6 @@
             android:name=".Pictures"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Comments"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".Description"
             android:theme="@style/AppTheme" />
         <activity
@@ -96,8 +93,8 @@
             android:name=".About_selected"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".BORRAR"
-            android:label="@string/title_activity_borrar"
+            android:name=".Comments"
+            android:label="@string/title_activity_comments"
             android:theme="@style/AppTheme"></activity>
     </application>
 

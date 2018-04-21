@@ -60,7 +60,6 @@
                         android:gravity="top"
                         android:inputType="textMultiLine"
                         android:text="Such a beautiful beach located in the south of Guanacaste. This beach has become in one of the most popular paradise in this province. "
-                        android:textAlignment="viewStart"
                         android:textSize="12sp" />
 
                 </LinearLayout>
