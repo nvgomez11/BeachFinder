@@ -13,11 +13,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
 
 import com.facebook.login.LoginManager;
 
+import java.util.ArrayList;
+
 public class Comments extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ArrayList<String> beach_CommentAutor = new ArrayList<String>();
+    ArrayList<String> beach_comment = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,38 @@ public class Comments extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+
+
+
+        //-------------Mostrar comentario en GridView
+        GridView gridViewComments  = findViewById(R.id.grid_viewComment);
+        Intent intent = getIntent();
+        String comentarios = intent.getStringExtra("selected_beach");
+
+
+        String comentariosLista[]=comentarios.split(";");
+        //En este momento comentarios del API tiene forma así:
+        //Autor:[Comentario;Autor2:Comentario2]
+
+        for (String comentario:comentariosLista) {
+            String tempComent[]=comentario.split(":");
+            beach_comment.add(tempComent[1]);
+            beach_CommentAutor.add(tempComent[0]+" has said:");
+        }
+
+/*
+        fill_titles_desc_icon();
+        for(int i=0; i<beaches_titles.size(); i++){
+            Log.d("met_beaches",beaches_titles.get(i));
+        }
+*/
+
+        GridCommentsAdapter adapterComment = new GridCommentsAdapter(this,beach_CommentAutor,beach_comment);
+        gridViewComments.setAdapter(adapterComment);
+
     }
 
     @Override
