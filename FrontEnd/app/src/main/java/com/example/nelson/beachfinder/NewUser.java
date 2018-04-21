@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.EditText;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -45,25 +46,11 @@ public class NewUser extends AppCompatActivity {
     JsonArrayRequest jsonArrayRequest;
     //---------
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_user);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-
-        //WebView myWebView = (WebView) findViewById(R.id.webview);
-        //myWebView.loadUrl("https://beach-finder.herokuapp.com/users/new");
+    public void createUser(View view){
+        final EditText newName= findViewById(R.id.EditTextInput_name);
+        final EditText newLastName= findViewById(R.id.EditTextInput_Lastname);
+        final EditText newEmail= findViewById(R.id.EditTextInput_email);
+        final EditText newPassword= findViewById(R.id.EditTextInput_password);
 
         //--------------------Bloque para bajar users de API
         /*URL url=null;
@@ -92,8 +79,11 @@ public class NewUser extends AppCompatActivity {
         }) {
             protected Map<String, String> getParams() {
                 Map<String, String> MyData = new HashMap<String, String>();
-                MyData.put("name", "FUNKAAAAAA"); //Add the data you'd like to send to the server.
-                MyData.put("last_name", "MANNNNNNNNN");
+                MyData.put("name", newName.getText().toString()); //Add the data you'd like to send to the server.
+                MyData.put("last_name", newLastName.getText().toString());
+                MyData.put("email", newEmail.getText().toString());
+                MyData.put("password", newPassword.getText().toString());
+
                 return MyData;
             }
         };
@@ -103,6 +93,21 @@ public class NewUser extends AppCompatActivity {
 
 
 //-------------------- FIN Bloque para bajar users de API
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_new_user);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+
+        //WebView myWebView = (WebView) findViewById(R.id.webview);
+        //myWebView.loadUrl("https://beach-finder.herokuapp.com/users/new");
+
+
     }
 
     private void sendPost() throws Exception {

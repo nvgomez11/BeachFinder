@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,11 +14,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 
+import java.util.ArrayList;
+
 public class Comments extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    ArrayList<String> beach_CommentAutor = new ArrayList<String>();
+    ArrayList<String> beach_comment = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +36,6 @@ public class Comments extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -43,7 +45,43 @@ public class Comments extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+
+        //-------------Mostrar comentario en GridView
+        GridView gridViewComments  = findViewById(R.id.grid_viewComments);
+        Intent intent = getIntent();
+        String comentarios = intent.getStringExtra("selected_beach");
+
+
+        String comentariosLista[]=comentarios.split(";");
+        //En este momento comentarios del API tiene forma así:
+        //Autor:[Comentario;Autor2:Comentario2]
+
+        for (String comentario:comentariosLista) {
+            String tempComent[]=comentario.split(":");
+            beach_comment.add(tempComent[1]);
+            beach_CommentAutor.add(tempComent[0]);
+        }
+
+/*
+        fill_titles_desc_icon();
+        for(int i=0; i<beaches_titles.size(); i++){
+            Log.d("met_beaches",beaches_titles.get(i));
+        }
+*/
+
+        GridCommentsAdapter adapterComment = new GridCommentsAdapter(this,beach_CommentAutor,beach_comment);
+        gridViewComments.setAdapter(adapterComment);
+
+
+
+
+
+        //
     }
+
 
     @Override
     public void onBackPressed() {

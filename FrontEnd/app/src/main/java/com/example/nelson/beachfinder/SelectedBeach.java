@@ -121,6 +121,7 @@ public class SelectedBeach extends AppCompatActivity
     }
     public void go_comments_activity(View view){
         Intent intent = new Intent(this,Comments.class);
+        intent.putExtra("selected_beach",chosen_beach_info.get(18)); //Pasan la lista de comentarios al activiry comentarios
         startActivity(intent);
     }
 

@@ -97,7 +97,7 @@ public class SearchActivity extends AppCompatActivity
         jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 //ip de la maquina, cel y compu deben estar en misma red
-                "https://beach-finder.herokuapp.com/beaches.json",
+                "https://proyecto1-pruebas.herokuapp.com/beaches.json",
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -130,6 +130,7 @@ public class SearchActivity extends AppCompatActivity
                                 String protected_area = beach.getString("protected_area");
                                 String cristal_water = beach.getString("cristal_water");
                                 String vegetation = beach.getString("vegetation");
+                                String comments = beach.getString("comments");
                                 json_beach.add(id);
                                 json_beach.add(beachName);
                                 json_beach.add(location);
@@ -148,6 +149,7 @@ public class SearchActivity extends AppCompatActivity
                                 json_beach.add(protected_area);
                                 json_beach.add(cristal_water);
                                 json_beach.add(vegetation);
+                                json_beach.add(comments);
                                 all_json_beaches.add(json_beach);
                             }
                         }catch (JSONException e){
