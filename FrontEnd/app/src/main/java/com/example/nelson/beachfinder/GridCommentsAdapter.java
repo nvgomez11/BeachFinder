@@ -50,7 +50,7 @@ public class GridCommentsAdapter extends BaseAdapter {
         View gridView = convertView;
         if(convertView==null){
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            gridView = inflater.inflate(R.layout.content_comments_list_inflator,null);
+            gridView = inflater.inflate(R.layout.content_comments_inflator,null);
         }
         TextView grid_commentAutor = (TextView) gridView.findViewById(R.id.grid_commentAutor);
         TextView grid_comment = (TextView) gridView.findViewById(R.id.grid_comment);

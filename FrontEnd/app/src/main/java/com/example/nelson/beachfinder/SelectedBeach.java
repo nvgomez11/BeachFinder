@@ -193,8 +193,6 @@ public class SelectedBeach extends AppCompatActivity
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
         Intent intent = new Intent(getApplicationContext(),Weather.class);
         intent.putStringArrayListExtra("selected_beach",chosen_beach_info);
         startActivity(intent);
