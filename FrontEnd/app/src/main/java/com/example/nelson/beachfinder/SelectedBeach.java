@@ -34,6 +34,8 @@ public class SelectedBeach extends AppCompatActivity
         MixpanelAPI mixpanel;
         String lat;
         String longi;
+        static int idSelectedBeach;
+        static String comments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,8 @@ public class SelectedBeach extends AppCompatActivity
         //recibe intent
         Intent intent = getIntent();
         chosen_beach_info = intent.getStringArrayListExtra("selected_beach");
+        idSelectedBeach=Integer.valueOf(chosen_beach_info.get(0));
+        comments=chosen_beach_info.get(18);
         //carga wigets
         ImageView imageView = findViewById(R.id.icon_selected_beach);
         TextView textView = findViewById(R.id.title_selected_beach);

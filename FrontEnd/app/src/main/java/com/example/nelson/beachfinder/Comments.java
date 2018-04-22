@@ -1,9 +1,13 @@
 package com.example.nelson.beachfinder;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,11 +17,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Comments extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,19 +40,106 @@ public class Comments extends AppCompatActivity
     ArrayList<String> beach_CommentAutor = new ArrayList<String>();
     ArrayList<String> beach_comment = new ArrayList<String>();
 
+     EditText author;
+     EditText comment;
+     EditText luis;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_comments);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        Comments.this);
+
+                LayoutInflater inflater = Comments.this.getLayoutInflater();
+
+                final View myLayout = inflater.inflate(R.layout.diaglo_new_comment,null);
+                alertDialogBuilder.setView(myLayout);
+
+                author= (EditText) myLayout.findViewById(R.id.EditAuthor);
+                comment=(EditText) myLayout.findViewById(R.id.EditComment);
+
+
+                // set title
+                alertDialogBuilder.setTitle("Create comment");
+
+
+                UsuarioSesion usuarioSesion=UsuarioSesion.getInstance();
+                String temp=usuarioSesion.getNameUser().toString()+" "+usuarioSesion.getLastName().toString();
+                author.setText(temp);
+
+                Log.d("COMENTAR",comment.getText().toString());
+
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage("Click yes for add a new comment to this beach!")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, close
+                                // current activity
+
+                                //---------Hacer POST al API beaches
+                                RequestQueue MyRequestQueue = Volley.newRequestQueue(Comments.this);
+
+
+                                String url = "https://beach-finder.herokuapp.com/beaches/"+SelectedBeach.idSelectedBeach+".json";
+                                StringRequest MyStringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        //This code is executed if the server responds, whether or not the response contains data.
+                                        //The String 'response' contains the server's response.
+                                    }
+                                }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Log.e("error",error.toString());
+                                    }
+                                }) {
+                                    protected Map<String, String> getParams() {
+                                        Map<String, String> MyData = new HashMap<String, String>();
+                                        String tempComentario=SelectedBeach.comments+"_"+author.getText().toString()+":"+comment.getText().toString();
+                                        MyData.put("comments", tempComentario); //Add the data you'd like to send to the server.
+
+
+                                        return MyData;
+                                    }
+                                };
+                                MyRequestQueue.add(MyStringRequest);
+                                Toast.makeText(Comments.this, "Thank you very much! Your commment has been addes", Toast.LENGTH_SHORT).show();
+
+
+
+                                // //---------Hacer POST al API beaches
+
+                                Comments.this.finish();
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+
             }
         });
 
@@ -49,6 +151,8 @@ public class Comments extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
 
 
 
