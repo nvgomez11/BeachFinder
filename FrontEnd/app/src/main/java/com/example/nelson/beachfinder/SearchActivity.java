@@ -57,7 +57,6 @@ public class SearchActivity extends AppCompatActivity
     Cache cache;
     Network network;
     JsonArrayRequest jsonArrayRequest;
-    public String datosUsuarioEnSesion;
 
     int idActiveUser=0;
 
@@ -90,10 +89,6 @@ public class SearchActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         //-------------------------------------
 
-        //Obtener usuario en sesion
-        Intent intent1=new Intent();
-        datosUsuarioEnSesion=intent1.getStringExtra("active_user",);
-        Log.d("ACTIVE-uSEr",datosUsuarioEnSesion);
 
         //
         //request_json(activityName);
@@ -228,8 +223,10 @@ public class SearchActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_profile) {
+
+
             Intent intent = new Intent(this,Profile.class);
-            intent.putExtra("active_userData",datosUsuarioEnSesion);
+
             startActivity(intent);
 
         } else if (id == R.id.nav_about) {

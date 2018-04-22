@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,14 +14,64 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    String url;
+    EditText textName;
+    EditText textLastName;
+    EditText textViewNationality;
+    EditText textViewPhone;
+    EditText textViewEmail;
+
+    public void updateProfile(View view)
+    {
+        RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
+
+
+        StringRequest MyStringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
+            }
+        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("error",error.toString());
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> MyData = new HashMap<String, String>();
+                MyData.put("name", textName.getText().toString()); //Add the data you'd like to send to the server.
+                MyData.put("last_name", textLastName.getText().toString());
+                MyData.put("nationality", textViewNationality.getText().toString());
+                MyData.put("phone_number", textViewPhone.getText().toString());
+                MyData.put("email", textViewEmail.getText().toString());
+
+                return MyData;
+            }
+        };
+        MyRequestQueue.add(MyStringRequest);
+
+        Toast.makeText(this, "Your information has been updated", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +91,26 @@ public class Profile extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //--------------------------------------------------
-        Intent intent=new Intent();
-        String datosUsuario=intent.getStringExtra("active_userData");
-        String[] datosUser= datosUsuario.split(":");
-        //USER_Data.add(json_user.get(1)+":"+json_user.get(2)+":"+json_user.get(4)+":"+json_user.get(5)+":"+json_user.get(6));
-        TextView textViewName= findViewById(R.id.EditTextInput_name);
-        TextView textViewLastName= findViewById(R.id.EditTextInput_Lastname);
-        TextView textViewEmail= findViewById(R.id.EditTextInput_email);
-        TextView textViewNationality= findViewById(R.id.EditTextInput_nationality);
-        TextView textViewPhone= findViewById(R.id.EditTextInput_phone);
-        textViewName.setText(""+datosUser[0]);
-        textViewLastName.setText(""+datosUser[1]);
-        textViewNationality.setText(""+datosUser[2]);
-        textViewEmail.setText(""+datosUser[4]);
-        textViewPhone.setText(""+datosUser[5]);
+        UsuarioSesion userSession = UsuarioSesion.getInstance();
+
+        Log.d("Name USER",userSession.getNameUser().toString());
+
+        int idUsuario=userSession.getIdUsuario();
+
+        url = "https://beach-finder.herokuapp.com/users"+"/"+idUsuario; //Donde se va a actualizar
+
+         textName= findViewById(R.id.editTextName);
+         textLastName= findViewById(R.id.EditTextLastName);
+         textViewNationality= findViewById(R.id.EditTextNationality);
+         textViewPhone= findViewById(R.id.EditTextPhone);
+         textViewEmail= findViewById(R.id.EditTextViewEmail);
+
+        textName.setText(userSession.getNameUser().toString());
+        textLastName.setText(userSession.getLastName().toString());
+        textViewNationality.setText(userSession.getNationality().toString());
+        textViewPhone.setText(userSession.getPhoneNumber().toString());
+        Log.d("Emai ES:",userSession.getEmail().toString());
+        textViewEmail.setText(userSession.getEmail().toString());
 
 
 

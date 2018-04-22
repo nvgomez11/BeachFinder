@@ -92,6 +92,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     CallbackManager callbackManager;
 
 
+
+
     //---------REQUEST -->GET
     static ArrayList<ArrayList> all_json_users = new ArrayList<ArrayList>();
     RequestQueue mRequestQueue;
@@ -103,6 +105,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public static ArrayList<String> USER_Data=new ArrayList<>();
     int idActiveUser=0;  //Id del usuario que inicio sesion basado en lo campo del API
     //int idActiveUser=0;
+
+    UsuarioSesion userSession= UsuarioSesion.getInstance();
 
     public  int getIdActiveUser(){
         return idActiveUser;
@@ -134,6 +138,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
         });
+
+
 
         //--------------------Bloque para bajar users de API
 
@@ -188,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 all_json_users.add(json_user);
                                 //Actualizar todos los credenciales para el login
                                 USER_CREDENTIALS.add(json_user.get(6)+":"+json_user.get(7));
-                                USER_Data.add(json_user.get(1)+":"+json_user.get(2)+":"+json_user.get(4)+":"+json_user.get(5)+":"+json_user.get(6));
+                                //USER_Data.add(json_user.get(1)+":"+json_user.get(2)+":"+json_user.get(4)+":"+json_user.get(5)+":"+json_user.get(6));
                                 Log.d("USERS-JSON:",USER_CREDENTIALS.get(i));
                             }
                             /*//Actualizar todos los credenciales
@@ -279,9 +285,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
            Log.d("USE--DATA;",i);
         }
 
-        Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra("active_user",USER_Data.get(idActiveUser));
-        Log.d("USER V1",USER_Data.get(idActiveUser));
+
+
+        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -530,8 +536,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+
+
+                all_json_users.get(idActiveUser).get(0);
+                //Log.d("CurreUSER",all_json_users.get(idActiveUser).get().toString());
+                //USER_Data.add(json_user.get(1)+":"+json_user.get(2)+":"+json_user.get(4)+":"+json_user.get(5)+":"+json_user.get(6));
+                userSession.setIdUsuario(Integer.parseInt(all_json_users.get(idActiveUser).get(0).toString()));
+                userSession.setNameUser(all_json_users.get(idActiveUser).get(1).toString());
+                userSession.setLastName(all_json_users.get(idActiveUser).get(2).toString());
+                userSession.setNationality(all_json_users.get(idActiveUser).get(3).toString());
+                userSession.setProfilePicture(all_json_users.get(idActiveUser).get(4).toString());
+                userSession.setPhoneNumber(all_json_users.get(idActiveUser).get(5).toString());
+                userSession.setEmail(all_json_users.get(idActiveUser).get(6).toString());
+
                 goMainActivity(); //Para ejecutar activity busqueda si se escriben los Dummy Credential
                 //finish();
+
+
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

@@ -69,78 +69,46 @@
           <form id="form" action="" method="post">
           <div class="form-group">
             <label for="exampleInputEmail1" >Beach name</label>
-            <input type="text" class="form-control" name="beach_name" placeholder="">
+            <input type="text" class="form-control" id="name" placeholder="">
           </div>
           
           <div class="form-group">
             <label for="exampleInputEmail1">Location</label>
-            <input type="text" class="form-control" name="location" placeholder="">
+            <input type="text" class="form-control" id="location" placeholder="">
           </div>
 
           <div class="form-group">
             <label for="exampleInputEmail1" >Sand color</label>
-            <input type="text" class="form-control" name="sand_color" placeholder="">
+            <input type="text" class="form-control" id="sand_color" placeholder="">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1" >description</label>
-            <input type="text" class="form-control" name="description" placeholder="">
+            <input type="text" class="form-control" id="description" placeholder="">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Main image</label>
-            <input type="text" class="form-control" name="main_image" placeholder=" ">
+            <input type="text" class="form-control" id="main_image" placeholder=" ">
           </div> 
           <div class="form-group">
             <label for="exampleInputEmail1">Second image</label>
-            <input type="text" class="form-control" name="second_image" placeholder=" ">
+            <input type="text" class="form-control" id="second_image" placeholder=" ">
           </div> 
           <div class="form-group">
             <label for="exampleInputEmail1">Latitude</label>
-            <input type="text" class="form-control" name="latitude" placeholder=" ">
+            <input type="text" class="form-control" id="latitude" placeholder=" ">
           </div> 
           <div class="form-group">
             <label for="exampleInputEmail1">Longitude</label>
-            <input type="text" class="form-control" name="longitude" placeholder=" ">
+            <input type="text" class="form-control" id="longitude" placeholder=" ">
           </div> 
           <div class="form-group">
             <label for="exampleInputEmail1">Wave type</label>
-            <input type="text" class="form-control" name="wave_type" placeholder=" ">
+            <input type="text" class="form-control" id="wave_type" placeholder=" ">
           </div> 
           <div class="form-group">
             <label for="exampleInputEmail1">Snorkeling </label>
-            <input type="checkbox" class="form-control" name="snorkeling" value="1" placeholder="">
+            <input type="checkbox" class="form-control" id="snorkeling " placeholder="">
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Swimming </label>
-            <input type="checkbox" class="form-control" name="swimming" value="1" placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Shade </label>
-            <input type="checkbox" class="form-control" name="shade" value="1" placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Night life </label>
-            <input type="checkbox" class="form-control" name="night_life" value="1" placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Camping zone </label>
-            <input type="checkbox" class="form-control" name="camping_zone" value="1" placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Protected area </label>
-            <input type="checkbox" class="form-control" name="protected_area" value="1" placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Cristal water </label>
-            <input type="checkbox" class="form-control" name="cristal_water" value="1" placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Vegetation</label>
-            <input type="text" class="form-control" name="vegetation" placeholder=" ">
-          </div> 
-          <div class="form-group">
-            <label for="exampleInputEmail1">Comments</label>
-            <input type="text" class="form-control" name="comments" placeholder=" ">
-          </div> 
 
       
           <input id="submit" type="button" name="submit" value="submit">
@@ -161,7 +129,7 @@
         $("#submit").on('click', function(){
             // send ajax
             $.ajax({
-                url: 'https://beach-finder.herokuapp.com/beaches', // url where to submit the request
+                url: 'https://proyecto1-pruebas.herokuapp.com/beaches', // url where to submit the request
                 type : "POST", // type of action POST || GET
                 dataType : 'json', // data type
                 data : $("#form").serialize(), // post data || get data
@@ -175,7 +143,7 @@
                     console.log(xhr, resp, text);
                 }
             })
-        alert("Beach has been added");
+        alert("User has been added");
         document.location = 'mainPage.html';
         });
     });
