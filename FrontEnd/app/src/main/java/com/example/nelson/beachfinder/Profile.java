@@ -1,10 +1,12 @@
 package com.example.nelson.beachfinder;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +28,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.login.LoginManager;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.Inflater;
 
 public class Profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -111,6 +116,13 @@ public class Profile extends AppCompatActivity
         textViewPhone.setText(userSession.getPhoneNumber().toString());
         Log.d("Emai ES:",userSession.getEmail().toString());
         textViewEmail.setText(userSession.getEmail().toString());
+        String urlImageProfile=userSession.getProfilePicture().toString();
+
+
+        //Agregar foto de perfil a View image
+        ImageView image = findViewById(R.id.imageProfile);
+        Picasso.get().load(urlImageProfile).into(image);
+        //----------------------------------------
     }
 
     @Override
