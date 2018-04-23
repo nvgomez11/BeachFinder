@@ -111,9 +111,6 @@ public class Profile extends AppCompatActivity
         textViewPhone.setText(userSession.getPhoneNumber().toString());
         Log.d("Emai ES:",userSession.getEmail().toString());
         textViewEmail.setText(userSession.getEmail().toString());
-
-
-
     }
 
     @Override

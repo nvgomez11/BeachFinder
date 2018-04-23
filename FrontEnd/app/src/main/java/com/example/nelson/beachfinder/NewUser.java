@@ -64,53 +64,78 @@ public class NewUser extends AppCompatActivity {
         {
             Log.d("ERROR:","No funciono POST ")
         }*/
-        RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
+        if( newName.getText().toString().trim().equals("")) {
+            newName.setError( "Name is required!" );
+            newName.setHint("Write your name");
+        } else {
+            if( newLastName.getText().toString().trim().equals("")) {
+                newLastName.setError( "Last name is required!" );
+                newLastName.setHint("Write your last name");
+            } else {
+                if( newEmail.getText().toString().trim().equals("")) {
+                    newEmail.setError( "Email is required!" );
+                    newEmail.setHint("Write your email");
+                } else {
+                    if( newPassword.getText().toString().trim().equals("")) {
+                        newPassword.setError( "Password is required!" );
+                        newPassword.setHint("Write your password");
+                    } else {
+                        RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
 
-        String url = "https://beach-finder.herokuapp.com/users";
-        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                //This code is executed if the server responds, whether or not the response contains data.
-                //The String 'response' contains the server's response.
-            }
-        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("error",error.toString());
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                Map<String, String> MyData = new HashMap<String, String>();
-                MyData.put("name", newName.getText().toString()); //Add the data you'd like to send to the server.
-                MyData.put("last_name", newLastName.getText().toString());
-                MyData.put("email", newEmail.getText().toString());
-                MyData.put("password", newPassword.getText().toString());
+                        String url = "https://beach-finder.herokuapp.com/users";
+                        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                //This code is executed if the server responds, whether or not the response contains data.
+                                //The String 'response' contains the server's response.
+                            }
+                        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e("error",error.toString());
+                            }
+                        }) {
+                            protected Map<String, String> getParams() {
+                                Map<String, String> MyData = new HashMap<String, String>();
+                                MyData.put("name", newName.getText().toString()); //Add the data you'd like to send to the server.
+                                MyData.put("last_name", newLastName.getText().toString());
+                                MyData.put("email", newEmail.getText().toString());
+                                MyData.put("password", newPassword.getText().toString());
 
-                return MyData;
-            }
-        };
-        MyRequestQueue.add(MyStringRequest);
+                                return MyData;
+                            }
+                        };
+                        MyRequestQueue.add(MyStringRequest);
 
-        Log.d("FIN:","TERMINO COD");
+                        Log.d("FIN:","TERMINO COD");
 
 
 //-------------------- FIN Bloque para bajar users de API
-        Toast.makeText(this, "Your account has been created", Toast.LENGTH_SHORT).show();
-        final Intent intent = new Intent(this,LoginActivity.class);
+                        Toast.makeText(this, "Your account has been created", Toast.LENGTH_SHORT).show();
+                        final Intent intent = new Intent(this,LoginActivity.class);
 
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(Toast.LENGTH_LONG+1); // As I am using LENGTH_LONG in Toast
-                    startActivity(intent);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                        Thread thread = new Thread(){
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(Toast.LENGTH_LONG+1); // As I am using LENGTH_LONG in Toast
+                                    startActivity(intent);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        };
+                        thread.start();
+                    }
                 }
-            }
-        };
 
-        thread.start();
+            }
+
+
+        }
+
+
+
 
     }
 
