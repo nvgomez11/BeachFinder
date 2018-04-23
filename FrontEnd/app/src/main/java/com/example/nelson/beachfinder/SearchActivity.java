@@ -157,7 +157,9 @@ public class SearchActivity extends AppCompatActivity
                                 json_beach.add(cristal_water);
                                 json_beach.add(vegetation);
                                 json_beach.add(comments);
-                                all_json_beaches.add(json_beach);
+                                if(location.length()!=4){
+                                    all_json_beaches.add(json_beach);
+                                }
                             }
                         }catch (JSONException e){
                             e.printStackTrace();

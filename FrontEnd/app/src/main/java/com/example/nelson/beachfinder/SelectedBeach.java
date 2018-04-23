@@ -155,7 +155,11 @@ public class SelectedBeach extends AppCompatActivity
             e.printStackTrace();
         }
         Intent intent = new Intent(this,Comments.class);
-        intent.putExtra("selected_beach",chosen_beach_info.get(18)); //Pasan la lista de comentarios al activiry comentarios
+        String comments = chosen_beach_info.get(18);
+        if(comments.length()==4){
+            comments = "No one:No comments to show";
+        }
+        intent.putExtra("selected_beach",comments); //Pasan la lista de comentarios al activiry comentarios
         startActivity(intent);
     }
 
