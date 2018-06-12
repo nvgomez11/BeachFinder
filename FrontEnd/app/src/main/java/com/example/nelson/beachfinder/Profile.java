@@ -45,6 +45,10 @@ public class Profile extends AppCompatActivity
     EditText textViewPhone;
     EditText textViewEmail;
 
+
+
+    UsersController userData;
+
     public void updateProfile(View view)
     {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(this);

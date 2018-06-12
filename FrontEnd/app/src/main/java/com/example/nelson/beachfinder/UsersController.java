@@ -39,11 +39,12 @@ public class UsersController {
     private String idSession;
     private String nameSession;
     private String last_nameSession;
+    private String nationalitySession;
+    private String profile_pictureSession;
+    private String phone_numberSession;
     private String emailSession;
     private String passwordSession;
-    private String profile_pictureSession;
-    private String id_flightsSession;
-    String record_kilometersSession;
+    private String locationSession;
 
 
     //Variable para usar Volley para APIs
@@ -118,33 +119,19 @@ public class UsersController {
         idSession =  String.valueOf(pIdActiveUser);
         nameSession = all_json_users.get(idPositionReg).get(1).toString();
         last_nameSession = all_json_users.get(idPositionReg).get(2).toString();
-        emailSession = all_json_users.get(idPositionReg).get(3).toString();
-        passwordSession = all_json_users.get(idPositionReg).get(4).toString();
+        nationalitySession = all_json_users.get(idPositionReg).get(3).toString();
+        profile_pictureSession = all_json_users.get(idPositionReg).get(4).toString();
+        phone_numberSession = all_json_users.get(idPositionReg).get(5).toString();
+        emailSession = all_json_users.get(idPositionReg).get(6).toString();
+        passwordSession = all_json_users.get(idPositionReg).get(7).toString();
+        locationSession = all_json_users.get(idPositionReg).get(8).toString();
         Log.d("Password",all_json_users.get(idPositionReg).get(4).toString());
         Log.d("ProfilePicture",all_json_users.get(idPositionReg).get(5).toString());
         //if all_json_users.get(idPositionReg).get(5).toString()
-        profile_pictureSession = all_json_users.get(idPositionReg).get(5).toString();
-        id_flightsSession = all_json_users.get(idPositionReg).get(6).toString();
-        record_kilometersSession = all_json_users.get(idPositionReg).get(7).toString();
-
-        /*String id = user.getString("id");
-        String name = user.getString("name");
-        String last_name = user.getString("last_name");
-        String nationality = user.getString("nationality");
-        String profile_picture = user.getString("profile_picture");
-        String phone_number = user.getString("phone_number");
-        String email = user.getString("email");
-        String password = user.getString("password");
-        String location = user.getString("location");*/
 
 
     }
 
-    public static String reverse(String forward) {
-        StringBuilder builder = new StringBuilder(forward);
-        String reverse = builder.reverse().toString();
-        return reverse;
-    }
 
     public void downloadDataFromAPi(File getCacheDir) // Pasar getCacheDir()
     {
@@ -262,8 +249,8 @@ public class UsersController {
         }) {
             protected Map<String, String> getParams() {
                 Map<String, String> MyData = new HashMap<String, String>();
-                id_flightsSession=id_flightsSession+":"+pIdCFlight;
-                MyData.put("id_flights",id_flightsSession);
+               // id_flightsSession=id_flightsSession+":"+pIdCFlight;
+                //MyData.put("id_flights",id_flightsSession);
 
                 return MyData;
             }
@@ -361,35 +348,8 @@ public class UsersController {
     }
 
 
-    public String getIdSession() {
-        return idSession;
-    }
 
-    public String getName() {
-        return nameSession;
-    }
 
-    public String getLast_name() {
-        return last_nameSession;
-    }
-
-    public String getEmail() {
-        return emailSession;
-    }
-
-    public String getPassword() {
-
-        return passwordSession;
-    }
-
-    public String getProfile_picture() {
-        return profile_pictureSession;
-    }
-
-    public String getId_flights() {
-        return id_flightsSession;
-
-    }
     public Boolean getUserSessionState() {
         return userSessionState;
     }
@@ -397,5 +357,40 @@ public class UsersController {
         userSessionState=pUserSessionState;
     }
 
+    public String getIdSession() {
+        return idSession;
+    }
+
+    public String getNameSession() {
+        return nameSession;
+    }
+
+    public String getLast_nameSession() {
+        return last_nameSession;
+    }
+
+    public String getNationalitySession() {
+        return nationalitySession;
+    }
+
+    public String getProfile_pictureSession() {
+        return profile_pictureSession;
+    }
+
+    public String getPhone_numberSession() {
+        return phone_numberSession;
+    }
+
+    public String getEmailSession() {
+        return emailSession;
+    }
+
+    public String getPasswordSession() {
+        return passwordSession;
+    }
+
+    public String getLocationSession() {
+        return locationSession;
+    }
 }
 

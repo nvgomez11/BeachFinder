@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     CallbackManager callbackManager;
 
 
+    UsersController usersData;
 
 
     //---------REQUEST -->GET
@@ -143,93 +144,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         //--------------------Bloque para bajar users de API
 
-        //request_json(activityName);
-        //Instantiate the cache
-        cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-        //Set up the network to use HttpURLConnection as the HTTP client.
-        network = new BasicNetwork(new HurlStack());
-        //Instantiate the RequestQueue with the cache and network.
-        mRequestQueue = new RequestQueue(cache, network);
-        //Start the queue
-        mRequestQueue.start();
-        // Initialize a new JsonArrayRequest instance
-        jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                //ip de la maquina, cel y compu deben estar en misma red
-                "https://beach-finder.herokuapp.com/users.json",
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        // Do something with response
-                        // Process the JSON
-                        Log.d("mop",response.toString());
-                        try{
-                            // Loop through the array elements
-                            for(int i=0;i<response.length();i++){
-                                // Get current json object
-                                JSONObject user = response.getJSONObject(i);
-                                //lista donde sera guardada la info
-                                ArrayList<String> json_user = new ArrayList<String>();
-                                String id = user.getString("id");
-                                String name = user.getString("name");
-                                String last_name = user.getString("last_name");
-                                String nationality = user.getString("nationality");
-                                String profile_picture = user.getString("profile_picture");
-                                String phone_number = user.getString("phone_number");
-                                String email = user.getString("email");
-                                String password = user.getString("password");
-                                String location = user.getString("location");
-
-                                json_user.add(id);
-                                json_user.add(name);
-                                json_user.add(last_name);
-                                json_user.add(nationality);
-                                json_user.add(profile_picture);
-                                json_user.add(phone_number);
-                                json_user.add(email);
-                                json_user.add(password);
-                                json_user.add(location);
-
-                                all_json_users.add(json_user);
-                                //Actualizar todos los credenciales para el login
-                                USER_CREDENTIALS.add(json_user.get(6)+":"+json_user.get(7));
-                                //USER_Data.add(json_user.get(1)+":"+json_user.get(2)+":"+json_user.get(4)+":"+json_user.get(5)+":"+json_user.get(6));
-                                Log.d("USERS-JSON:",USER_CREDENTIALS.get(i));
-                            }
-                            /*//Actualizar todos los credenciales
-                            int cont=0;
-                            for (ArrayList<ArrayList<>> userTemp :all_json_users)
-                            {
-                                USER_CREDENTIALS[cont]=userTemp.get(6)+":"+userTemp.get(7);
-                                Log.d("USERS-JSON:",USER_CREDENTIALS[cont]);
-                                cont++;
-                            }*/
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }
-
-
-                    }
-                },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                        // Do something when error occurred
-                        Log.d("Error","No pudo entrar al API /users");
-                    }
-                }
-
-        );
-
-        SystemClock.sleep(3000);
-        // Adding request to request queue
-        mRequestQueue.add(jsonArrayRequest);
-
-
 
 
 //-------------------- FIN Bloque para bajar users de API
+
+
+
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -270,6 +190,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         MixpanelAPI mixpanel = MixpanelAPI.getInstance(this, projectToken);
 
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Log.d("Start","Llego al Start");
+        usersData=UsersController.getInstance();
+
+        usersData.downloadDataFromAPi(getCacheDir());
+
+
+        SystemClock.sleep(3000);
+
+
+    }
+
     //facebook
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -507,6 +442,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
             Boolean login=false;
+            String idActiveUser="";  //Id del usuario que inicio sesion basado en lo campo del API
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
@@ -514,12 +450,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (int i=0; i<USER_CREDENTIALS.size();i++) {
-                String[] pieces = USER_CREDENTIALS.get(i).split(":");
-                if (pieces[0].equals(mEmail) && pieces[1].equals(mPassword) ) {
+            for (int i=0; i<usersData.getAll_json_users().size();i++) {
+                //String[] pieces = usersCtrl.getUserCredentials().get(i).split(":");
+                // Log.d("Contrasenna:id",pieces[2]+":"+pieces[0]);
+
+                if (usersData.getAll_json_users().get(i).get(6).equals(mEmail) && usersData.getAll_json_users().get(i).get(7).equals(mPassword) ) {
                     // Account exists, return true if the password matches.
                     login=true;
-                    idActiveUser=i;
+                    idActiveUser=usersData.getAll_json_users().get(i).get(0).toString();
+
+                    usersData.setSessionUser(idActiveUser); //
+
+                    usersData.setUserSessionState(true);
+
                     break;
                     //return true;
 
@@ -538,7 +481,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
 
 
-                all_json_users.get(idActiveUser).get(0);
+               /* all_json_users.get(idActiveUser).get(0);
                 //Log.d("CurreUSER",all_json_users.get(idActiveUser).get().toString());
                 //USER_Data.add(json_user.get(1)+":"+json_user.get(2)+":"+json_user.get(4)+":"+json_user.get(5)+":"+json_user.get(6));
                 userSession.setIdUsuario(Integer.parseInt(all_json_users.get(idActiveUser).get(0).toString()));
@@ -547,7 +490,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 userSession.setNationality(all_json_users.get(idActiveUser).get(3).toString());
                 userSession.setProfilePicture(all_json_users.get(idActiveUser).get(4).toString());
                 userSession.setPhoneNumber(all_json_users.get(idActiveUser).get(5).toString());
-                userSession.setEmail(all_json_users.get(idActiveUser).get(6).toString());
+                userSession.setEmail(all_json_users.get(idActiveUser).get(6).toString());*/
 
                 goMainActivity(); //Para ejecutar activity busqueda si se escriben los Dummy Credential
                 //finish();

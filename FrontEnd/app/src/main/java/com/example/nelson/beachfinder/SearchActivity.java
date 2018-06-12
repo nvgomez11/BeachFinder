@@ -5,6 +5,7 @@ import android.media.MediaCas;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -19,13 +20,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.os.AsyncTask;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 import java.util.ArrayList;
@@ -60,6 +67,13 @@ public class SearchActivity extends AppCompatActivity
 
     int idActiveUser=0;
 
+    private GoogleApiClient googleApiClient;
+    private ImageView imageUser;
+    private TextView nameUser;
+    private TextView emailUser;
+    private View navHeader;
+    UsersController userData;
+
 
 
 
@@ -88,6 +102,13 @@ public class SearchActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //-------------------------------------
+
+        //-----------------------------------------------------
+        //---------Para conectar a google silenciosamente y cargar foto nombre email
+        navHeader = navigationView.getHeaderView(0);
+        imageUser = (ImageView) navHeader.findViewById(R.id.imageViewGoogle_user);
+        nameUser = (TextView) navHeader.findViewById(R.id.nameGoogle_user);
+        emailUser = (TextView) navHeader.findViewById(R.id.emailGoogle_user);
 
 
         //
@@ -189,6 +210,36 @@ public class SearchActivity extends AppCompatActivity
 
     }
 
+    protected void onStart() {
+        super.onStart();
+
+        //Se descarga la informacion sobre los usuario nuevamente
+        userData = UsersController.getInstance();
+        if (userData.getUserSessionState())
+        {
+            Log.d("Rino", "Va a descargar User del start");
+            userData = UsersController.getInstance();
+            userData.downloadDataFromAPi(getCacheDir());
+            SystemClock.sleep(3000);
+            userData.setSessionUser(userData.getIdSession());
+
+            nameUser.setText(userData.getNameSession());
+            emailUser.setText(userData.getEmailSession());
+            //para cargar la foto de la persona
+            if (userData.getProfile_pictureSession() == "null") {
+                Log.d("perro", "foto es null");
+                imageUser.setImageResource(R.drawable.beach_icon);
+            }
+            else
+            {
+                Glide.with(this).load(userData.getProfile_pictureSession()).into(imageUser);
+            }
+        }
+        else {
+
+            //Login con FB
+        }
+    }
 
     @Override
     public void onBackPressed() {
