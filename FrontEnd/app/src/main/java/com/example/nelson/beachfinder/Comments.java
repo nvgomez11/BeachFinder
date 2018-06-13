@@ -52,6 +52,9 @@ public class Comments extends AppCompatActivity
     UsersController usersData;
     beachSelected beachData;//Almacena playa selecionada
 
+    GridView gridViewComments;
+    GridCommentsAdapter adapterComment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -61,14 +64,42 @@ public class Comments extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        gridViewComments  = findViewById(R.id.grid_viewComment);
+
+
 
 
     }
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        beachSelected beachData=beachSelected.getInstance();
+
+        String comentariosLista[]=beachData.getComments().split("_");
+        //En este momento comentarios del API tiene forma así:
+        //[Autor:Comentario|Autor2:Comentario2]
+
+        for (String comentario:comentariosLista) {
+            String tempComent[]=comentario.split(":");
+            beach_comment.add(tempComent[1]);
+            beach_CommentAutor.add(tempComent[0]+" said...");
+        }
+
+
+        adapterComment = new GridCommentsAdapter(this,beach_CommentAutor,beach_comment);
+
+        gridViewComments.setAdapter(adapterComment);
+    }
+
 
     @Override
     public void onResume()
     {
         super.onResume();
+
+        usersData=UsersController.getInstance();
+        beachData=beachSelected.getInstance();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -87,12 +118,13 @@ public class Comments extends AppCompatActivity
                 comment=(EditText) myLayout.findViewById(R.id.EditComment);
 
 
+
+
                 // set title
                 alertDialogBuilder.setTitle("Create comment");
 
 
-                usersData=UsersController.getInstance();
-                beachData=beachSelected.getInstance();
+
                 final String temp=usersData.getNameSession().toString()+" "+usersData.getLast_nameSession();
                 author.setText(temp);
 
@@ -128,8 +160,8 @@ public class Comments extends AppCompatActivity
                                     protected Map<String, String> getParams() {
                                         Map<String, String> MyData = new HashMap<String, String>();
                                         Log.d("Aguila:",SelectedBeach.comments);
-                                        if (!SelectedBeach.comments.equals("")) {
-                                            String tempComentario = SelectedBeach.comments + "_" + author.getText().toString() + ":" + comment.getText().toString();
+                                        if (!beachData.getCommentsBeachSelected().equals("")) {
+                                            String tempComentario = beachData.getCommentsBeachSelected() + "_" + author.getText().toString() + ":" + comment.getText().toString();
                                             MyData.put("comments", tempComentario); //Add the data you'd like to send to the server.
                                         }else
                                         {
@@ -143,10 +175,17 @@ public class Comments extends AppCompatActivity
                                     }
                                 };
                                 MyRequestQueue.add(MyStringRequest);
+
+                                beachData.downloadDataCommentsFromAPi(getCacheDir());
                                 Toast.makeText(Comments.this, "Thank you very much! Your commment has been added", Toast.LENGTH_SHORT).show();
                                 SystemClock.sleep(3000);
 
-                                Intent intent = new Intent(Comments.this,SearchActivity.class);
+
+                                //GridCommentsAdapter adapterComment = new GridCommentsAdapter(Comments.,beach_CommentAutor,beach_comment);
+
+                                //gridViewComments.setAdapter(adapterComment);
+
+                                Intent intent = new Intent(Comments.this,SelectedBeach.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT); //(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET; Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
 
@@ -196,12 +235,24 @@ public class Comments extends AppCompatActivity
             // Do something with the empty list here.
         }else
         {*/
-        GridView gridViewComments  = findViewById(R.id.grid_viewComment);
+        //GridView gridViewComments  = findViewById(R.id.grid_viewComment);
         Intent intent = getIntent();
         String comentarios = intent.getStringExtra("selected_beach");
 
+        beachData.downloadDataCommentsFromAPi(getCacheDir());
+        try {
+            Thread.sleep(5000);
+            Log.d("Caballo","Entro al Try");
+        } catch (InterruptedException e) {
+            Log.d("Caballo","Entro al CARTCH");
+            e.printStackTrace();
+        }
+        ///Log.d("Bicho:",));
+        Log.d("API beachesComments",beachData.getComments());
 
-        String comentariosLista[]=comentarios.split("_");
+
+
+        String comentariosLista[]=beachData.getComments().split("_");
         //En este momento comentarios del API tiene forma así:
         //[Autor:Comentario|Autor2:Comentario2]
 
@@ -212,7 +263,7 @@ public class Comments extends AppCompatActivity
         }
 
 
-        GridCommentsAdapter adapterComment = new GridCommentsAdapter(this,beach_CommentAutor,beach_comment);
+
         gridViewComments.setAdapter(adapterComment);
 
         //}

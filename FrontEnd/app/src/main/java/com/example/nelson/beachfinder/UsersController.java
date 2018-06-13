@@ -125,8 +125,8 @@ public class UsersController {
         emailSession = all_json_users.get(idPositionReg).get(6).toString();
         passwordSession = all_json_users.get(idPositionReg).get(7).toString();
         locationSession = all_json_users.get(idPositionReg).get(8).toString();
-        Log.d("Password",all_json_users.get(idPositionReg).get(4).toString());
-        Log.d("ProfilePicture",all_json_users.get(idPositionReg).get(5).toString());
+        Log.d("Password",all_json_users.get(idPositionReg).get(7).toString());
+        Log.d("ProfilePicture",all_json_users.get(idPositionReg).get(4).toString());
         //if all_json_users.get(idPositionReg).get(5).toString()
 
 
