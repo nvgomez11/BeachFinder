@@ -144,7 +144,11 @@ public class Comments extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //Boton de UP
+        // If your minSdkVersion is 11 or higher use:
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -152,6 +156,8 @@ public class Comments extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        */
 
         //-------------Mostrar comentario en GridView
         GridView gridViewComments  = findViewById(R.id.grid_viewComment);

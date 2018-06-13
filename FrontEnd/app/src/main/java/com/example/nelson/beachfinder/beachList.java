@@ -58,6 +58,8 @@ public class beachList extends AppCompatActivity
 
     TextView txt_empty;
 
+    beachSelected beachData;//Almacena playa selecionada
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,14 +67,21 @@ public class beachList extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+
+        //Boton de UP
+        // If your minSdkVersion is 11 or higher use:
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);*/
 
         //------------------------------------
 
@@ -109,7 +118,7 @@ public class beachList extends AppCompatActivity
         for(int i=0; i<beaches_titles.size(); i++){
             Log.d("met_beaches",beaches_titles.get(i));
         }
-
+        beachData=beachSelected.getInstance();
         GridAdapter adapter = new GridAdapter(this,beaches_titles,beaches_descriptions,beaches_icons);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -118,6 +127,9 @@ public class beachList extends AppCompatActivity
                 Toast.makeText(beachList.this,"Selected beach is: "+beaches_titles.get(i),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(),SelectedBeach.class);
                 intent.putStringArrayListExtra("selected_beach",all_beaches_apply.get(i));
+
+                beachData.setChosen_beach_info(all_beaches_apply.get(i));
+                beachData.setData(true);
                 startActivity(intent);
             }
         });
@@ -130,6 +142,9 @@ public class beachList extends AppCompatActivity
                 Log.d("oso",listita.get(j));
             }
         }
+
+
+
 
 
     }
@@ -184,6 +199,7 @@ public class beachList extends AppCompatActivity
     }
 
     public void go_selected_beach(View view){
+
         Intent intent = new Intent(this,SelectedBeach.class);
         startActivity(intent);
     }

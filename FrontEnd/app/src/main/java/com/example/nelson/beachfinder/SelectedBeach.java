@@ -37,6 +37,8 @@ public class SelectedBeach extends AppCompatActivity
         static int idSelectedBeach;
         static String comments;
 
+    beachSelected beachData;//Almacena playa selecionada
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,23 +61,60 @@ public class SelectedBeach extends AppCompatActivity
 
         //recibe intent
         Intent intent = getIntent();
-        chosen_beach_info = intent.getStringArrayListExtra("selected_beach");
-        idSelectedBeach=Integer.valueOf(chosen_beach_info.get(0));
-        comments=chosen_beach_info.get(18);
-        //carga wigets
-        ImageView imageView = findViewById(R.id.icon_selected_beach);
-        TextView textView = findViewById(R.id.title_selected_beach);
-        //carga info de la palya seleccionada
-        String url = chosen_beach_info.get(5);
-        String title = chosen_beach_info.get(1);
-        //set info
-        Picasso.get().load(url).into(imageView);
-        textView.setText(title);
+       // chosen_beach_info = intent.getStringArrayListExtra("selected_beach");
 
-        lat = chosen_beach_info.get(7);
-        longi = chosen_beach_info.get(8);
-        Log.d("tata",lat);
-        Log.d("tata",longi);
+        beachData=beachSelected.getInstance();
+
+        if(beachData.getData())
+        {
+
+
+            for(int i=0;i< beachData.getChosen_beach_info().size();i++)
+            {
+
+                chosen_beach_info.add(beachData.getChosen_beach_info().get(i));
+
+            }
+
+
+            comments=chosen_beach_info.get(18);
+            //carga wigets
+            ImageView imageView = findViewById(R.id.icon_selected_beach);
+            TextView textView = findViewById(R.id.title_selected_beach);
+            //carga info de la palya seleccionada
+            String url = chosen_beach_info.get(5);
+            String title = chosen_beach_info.get(1);
+            //set info
+            Picasso.get().load(url).into(imageView);
+            textView.setText(title);
+
+
+            // Do something with the empty list here.
+        }else
+            {
+                idSelectedBeach=Integer.valueOf(chosen_beach_info.get(0));
+
+                beachData.setChosen_beach_info(chosen_beach_info);
+                //beachData.setEmptyChoseInfo(false);
+
+                comments=chosen_beach_info.get(18);
+                //carga wigets
+                ImageView imageView = findViewById(R.id.icon_selected_beach);
+                TextView textView = findViewById(R.id.title_selected_beach);
+                //carga info de la palya seleccionada
+                String url = chosen_beach_info.get(5);
+                String title = chosen_beach_info.get(1);
+                //set info
+                Picasso.get().load(url).into(imageView);
+                textView.setText(title);
+
+                lat = chosen_beach_info.get(7);
+                longi = chosen_beach_info.get(8);
+                Log.d("tata",lat);
+                Log.d("tata",longi);
+
+            }
+
 
 
         mixpanel =

@@ -24,7 +24,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+
+        >
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -47,7 +50,9 @@
             android:label="@string/app_name" />
         <activity
             android:name=".beachList"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:parentActivityName="com.example.nelson.beachfinder.AdvancedSearch"
+            />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -69,10 +74,14 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Pictures"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:parentActivityName="com.example.nelson.beachfinder.SelectedBeach"
+            />
         <activity
             android:name=".Description"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:parentActivityName="com.example.nelson.beachfinder.SelectedBeach"
+            />
         <activity
             android:name=".AdvancedSearch"
             android:theme="@style/AppTheme"
@@ -87,7 +96,9 @@
         <activity android:name=".Route" />
         <activity
             android:name=".Weather"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:parentActivityName="com.example.nelson.beachfinder.SelectedBeach"
+            />
         <activity
             android:name=".About_section"
             android:theme="@style/AppTheme" />
@@ -97,7 +108,9 @@
         <activity
             android:name=".Comments"
             android:label="@string/title_activity_comments"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:parentActivityName="com.example.nelson.beachfinder.SelectedBeach"
+            ></activity>
     </application>
 
 </manifest>
