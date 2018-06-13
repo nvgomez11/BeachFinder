@@ -160,6 +160,7 @@ public class SearchActivity extends AppCompatActivity
                                 String cristal_water = beach.getString("cristal_water");
                                 String vegetation = beach.getString("vegetation");
                                 String comments = beach.getString("comments");
+                                //Son 19 datos de playas, es decir comments es el 18 empezando de 0
                                 json_beach.add(id);
                                 json_beach.add(beachName);
                                 json_beach.add(location);
@@ -179,6 +180,12 @@ public class SearchActivity extends AppCompatActivity
                                 json_beach.add(cristal_water);
                                 json_beach.add(vegetation);
                                 json_beach.add(comments);
+
+                                Log.d("Avion", "comentario tiene:"+comments);
+                                if (comments.equals(""))
+                                {
+                                    Log.d("Avion", "tiene comentarios vacios:"+beachName);
+                                }
                                 if(location.length()!=4){
                                     all_json_beaches.add(json_beach);
                                 }

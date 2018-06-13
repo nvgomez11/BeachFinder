@@ -35,7 +35,7 @@ public class SelectedBeach extends AppCompatActivity
         String lat;
         String longi;
         static int idSelectedBeach;
-        static String comments;
+        static String comments="null";
 
     beachSelected beachData;//Almacena playa selecionada
 
@@ -195,8 +195,8 @@ public class SelectedBeach extends AppCompatActivity
         }
         Intent intent = new Intent(this,Comments.class);
         String comments = chosen_beach_info.get(18);
-        if(comments.length()==4){
-            comments = "No one:No comments to show";
+        if(comments.equals("")){  //== porque si tiene la palabra null
+            comments = "No one:No comments to show";  //En formato autor:comentario
         }
         intent.putExtra("selected_beach",comments); //Pasan la lista de comentarios al activiry comentarios
         startActivity(intent);

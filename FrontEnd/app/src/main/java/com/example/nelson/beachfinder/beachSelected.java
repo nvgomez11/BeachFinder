@@ -8,7 +8,7 @@ import java.util.Arrays;
  */
 
 public class beachSelected {
-    private String idSelecteBeach;
+    private String idRealSelectedBeach;
 
     private ArrayList<String> chosen_beach_info = new ArrayList<String>();
     private Boolean data=false;
@@ -22,16 +22,28 @@ public class beachSelected {
         return instanceBeach;
     }
 
+    public String getComments(){
 
-
-
-    public String getIdSelecteBeach() {
-        return idSelecteBeach;
+        return chosen_beach_info.get(18);
     }
 
-    public void setIdSelecteBeach(String idSelecteBeach) {
-        this.idSelecteBeach = idSelecteBeach;
+
+    public void setIdRealForBeach(String pidRealSelectedBeach)
+    {
+        idRealSelectedBeach=pidRealSelectedBeach;
+
     }
+
+
+
+
+
+
+    public String getIdRealForBeach() {
+        return idRealSelectedBeach;
+    }
+
+
 
     public ArrayList<String> getChosen_beach_info() {
         return chosen_beach_info;

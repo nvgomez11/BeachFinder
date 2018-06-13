@@ -55,6 +55,7 @@ public class beachList extends AppCompatActivity
     ArrayList<String> beaches_titles = new ArrayList<String>();
     ArrayList<String> beaches_descriptions = new ArrayList<String>();
     ArrayList<String> beaches_icons = new ArrayList<String>();
+    ArrayList<String> beaches_idBeachesListView = new ArrayList<String>();
 
     TextView txt_empty;
 
@@ -118,6 +119,10 @@ public class beachList extends AppCompatActivity
         for(int i=0; i<beaches_titles.size(); i++){
             Log.d("met_beaches",beaches_titles.get(i));
         }
+
+        //Aca envia info el GridView
+
+        //--------------------------------------------------------GRID VIEW-------------------------------------
         beachData=beachSelected.getInstance();
         GridAdapter adapter = new GridAdapter(this,beaches_titles,beaches_descriptions,beaches_icons);
         gridView.setAdapter(adapter);
@@ -125,17 +130,25 @@ public class beachList extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(beachList.this,"Selected beach is: "+beaches_titles.get(i),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(),SelectedBeach.class);
-                intent.putStringArrayListExtra("selected_beach",all_beaches_apply.get(i));
 
+                //Agregar info de playa seleccionada a beachSelecte que es como un controoller
                 beachData.setChosen_beach_info(all_beaches_apply.get(i));
                 beachData.setData(true);
+                String idRealSelectedBeach=beaches_idBeachesListView.get(i);
+                beachData.setIdRealForBeach(idRealSelectedBeach);
+                Log.d("Vaca", "ID real de playa escogido es: "+beachData.getIdRealForBeach());
+
+
+                Intent intent = new Intent(getApplicationContext(),SelectedBeach.class);
+                intent.putStringArrayListExtra("selected_beach",all_beaches_apply.get(i));
                 startActivity(intent);
             }
         });
 
 
         Log.d("edward",String.valueOf(SearchActivity.all_json_beaches.size()));
+
+        // Se trae la informacion de playas descargadas
         for(int i=0;i<SearchActivity.all_json_beaches.size();i++){
             ArrayList<String> listita =  SearchActivity.all_json_beaches.get(i);
             for(int j=0;j<listita.size();j++){
@@ -222,8 +235,13 @@ public class beachList extends AppCompatActivity
 
     public void select_all_beaches_that_apply(){
         for(int i = 0; i<SearchActivity.all_json_beaches.size();i++){
-            ArrayList beach = SearchActivity.all_json_beaches.get(i);
 
+
+            //Seleccionar
+            ArrayList beach = SearchActivity.all_json_beaches.get(i);  //Comentario esta en el 18 posicion
+
+            //beach tiene los atributos
+            //comentarios es el 18
             String location= String.valueOf(beach.get(2));
             String sand= String.valueOf(beach.get(3));
             String tide= String.valueOf(beach.get(9));
@@ -235,6 +253,9 @@ public class beachList extends AppCompatActivity
             String snork= string_to_bool(String.valueOf(beach.get(10)));
             String protected_area= string_to_bool(String.valueOf(beach.get(15)));
             String cristal= string_to_bool(String.valueOf(beach.get(16)));
+
+
+
 
             String location_selected = data_selected_radioButton.get(0);
             String sand_selected = data_selected_radioButton.get(1);
@@ -259,7 +280,7 @@ public class beachList extends AppCompatActivity
                                             if((snork.compareTo(snork_selected)==0) || (snork_selected.compareTo("Any")==0)){
                                                 if((protected_area.compareTo(protected_area_selected)==0) || (protected_area_selected.compareTo("Any")==0)){
                                                     if((cristal.compareTo(cristal_selected)==0) || (cristal_selected.compareTo("Any")==0)){
-                                                        all_beaches_apply.add(beach);
+                                                        all_beaches_apply.add(beach); //Almacena las playas que estan en en listView
                                                     }
                                                 }
                                             }
@@ -280,12 +301,16 @@ public class beachList extends AppCompatActivity
         }
         for(int i=0;i<all_beaches_apply.size();i++){
             ArrayList beach = all_beaches_apply.get(i);
+            String idBeachesonJson=beach.get(0).toString();
             String title = beach.get(1).toString();
             String description = beach.get(4).toString();
             String icon = beach.get(5).toString();
+
+            Log.d("Foca", "nombrePlaya:"+title+" y id en Json de esa playa:"+idBeachesonJson);
             beaches_titles.add(title);
             beaches_descriptions.add(description);
             beaches_icons.add(icon);
+            beaches_idBeachesListView.add(idBeachesonJson);
         }
     }
 

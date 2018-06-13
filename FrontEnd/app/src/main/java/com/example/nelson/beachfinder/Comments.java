@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.login.LoginManager;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,6 +46,10 @@ public class Comments extends AppCompatActivity
      EditText author;
      EditText comment;
      EditText luis;
+
+
+    UsersController usersData;
+    beachSelected beachData;//Almacena playa selecionada
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +82,9 @@ public class Comments extends AppCompatActivity
                 alertDialogBuilder.setTitle("Create comment");
 
 
-                UsuarioSesion usuarioSesion=UsuarioSesion.getInstance();
-                String temp=usuarioSesion.getNameUser().toString()+" "+usuarioSesion.getLastName().toString();
+                usersData=UsersController.getInstance();
+                beachData=beachSelected.getInstance();
+                String temp=usersData.getNameSession().toString()+" "+usersData.getLast_nameSession();
                 author.setText(temp);
 
                 Log.d("COMENTAR",comment.getText().toString());
@@ -95,7 +102,8 @@ public class Comments extends AppCompatActivity
                                 RequestQueue MyRequestQueue = Volley.newRequestQueue(Comments.this);
 
 
-                                String url = "https://beach-finder.herokuapp.com/beaches/"+SelectedBeach.idSelectedBeach+".json";
+                                String url = "https://beach-finder.herokuapp.com/beaches/"+beachData.getIdRealForBeach();
+                                Log.d("v","");
                                 StringRequest MyStringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String response) {
@@ -110,8 +118,16 @@ public class Comments extends AppCompatActivity
                                 }) {
                                     protected Map<String, String> getParams() {
                                         Map<String, String> MyData = new HashMap<String, String>();
-                                        String tempComentario=SelectedBeach.comments+"_"+author.getText().toString()+":"+comment.getText().toString();
-                                        MyData.put("comments", tempComentario); //Add the data you'd like to send to the server.
+                                        Log.d("Aguila:",SelectedBeach.comments);
+                                        if (!SelectedBeach.comments.equals("")) {
+                                            String tempComentario = SelectedBeach.comments + "_" + author.getText().toString() + ":" + comment.getText().toString();
+                                            MyData.put("comments", tempComentario); //Add the data you'd like to send to the server.
+                                        }else
+                                        {
+                                            String tempComentario=author.getText().toString() + ":" + comment.getText().toString();
+                                            MyData.put("comments", tempComentario);
+                                        }
+
 
 
                                         return MyData;
@@ -160,9 +176,17 @@ public class Comments extends AppCompatActivity
         */
 
         //-------------Mostrar comentario en GridView
-        GridView gridViewComments  = findViewById(R.id.grid_viewComment);
-        Intent intent = getIntent();
-        String comentarios = intent.getStringExtra("selected_beach");
+
+        /*if(c)
+        {
+
+            Toast.makeText(this, "No hay comentario por el momentos", Toast.LENGTH_SHORT).show();
+            // Do something with the empty list here.
+        }else
+        {*/
+            GridView gridViewComments  = findViewById(R.id.grid_viewComment);
+            Intent intent = getIntent();
+            String comentarios = intent.getStringExtra("selected_beach");
 
 
             String comentariosLista[]=comentarios.split("_");
@@ -176,8 +200,11 @@ public class Comments extends AppCompatActivity
             }
 
 
-        GridCommentsAdapter adapterComment = new GridCommentsAdapter(this,beach_CommentAutor,beach_comment);
-        gridViewComments.setAdapter(adapterComment);
+            GridCommentsAdapter adapterComment = new GridCommentsAdapter(this,beach_CommentAutor,beach_comment);
+            gridViewComments.setAdapter(adapterComment);
+
+        //}
+
     }
 
     @Override
