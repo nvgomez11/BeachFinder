@@ -100,11 +100,12 @@ public class Profile extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //--------------------------------------------------
-        UsuarioSesion userSession = UsuarioSesion.getInstance();
+        //UsuarioSesion userSession = UsuarioSesion.getInstance();
+        userData=UsersController.getInstance();
 
-        Log.d("Name USER",userSession.getNameUser().toString());
+        //Log.d("Name USER",userSession.getNameUser().toString());
 
-        int idUsuario=userSession.getIdUsuario();
+        int idUsuario=Integer.parseInt(userData.getIdSession());
 
         url = "https://beach-finder.herokuapp.com/users"+"/"+idUsuario; //Donde se va a actualizar
 
@@ -114,13 +115,13 @@ public class Profile extends AppCompatActivity
          textViewPhone= findViewById(R.id.EditTextPhone);
          textViewEmail= findViewById(R.id.EditTextViewEmail);
 
-        textName.setText(userSession.getNameUser().toString());
-        textLastName.setText(userSession.getLastName().toString());
-        textViewNationality.setText(userSession.getNationality().toString());
-        textViewPhone.setText(userSession.getPhoneNumber().toString());
-        Log.d("Emai ES:",userSession.getEmail().toString());
-        textViewEmail.setText(userSession.getEmail().toString());
-        String urlImageProfile=userSession.getProfilePicture().toString();
+        textName.setText(userData.getNameSession());
+        textLastName.setText(userData.getLast_nameSession());
+        textViewNationality.setText(userData.getNationalitySession());
+        textViewPhone.setText(userData.getPhone_numberSession());
+        Log.d("Emai ES:",userData.getEmailSession());
+        textViewEmail.setText(userData.getEmailSession());
+        String urlImageProfile=userData.getProfile_pictureSession();
 
 
         //Agregar foto de perfil a View image
