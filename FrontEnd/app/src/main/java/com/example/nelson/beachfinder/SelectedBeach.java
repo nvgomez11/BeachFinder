@@ -3,6 +3,7 @@ package com.example.nelson.beachfinder;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -18,6 +19,8 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
@@ -37,6 +40,11 @@ public class SelectedBeach extends AppCompatActivity
         static int idSelectedBeach;
         static String comments="null";
 
+    private ImageView imageUser;
+    private TextView nameUser;
+    private TextView emailUser;
+    private View navHeader;
+    UsersController userData;
     beachSelected beachData;//Almacena playa selecionada
 
     @Override
@@ -59,45 +67,79 @@ public class SelectedBeach extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         //---------------------------------------
 
-        //recibe intent
-        Intent intent = getIntent();
-       // chosen_beach_info = intent.getStringArrayListExtra("selected_beach");
 
-        beachData=beachSelected.getInstance();
+        //-----------------------------------------------------
+        //---------Para conectar a google silenciosamente y cargar foto nombre email
+        navHeader = navigationView.getHeaderView(0);
+        imageUser = (ImageView) navHeader.findViewById(R.id.imageViewGoogle_user);
+        nameUser = (TextView) navHeader.findViewById(R.id.nameGoogle_user);
+        emailUser = (TextView) navHeader.findViewById(R.id.emailGoogle_user);
 
-        if(beachData.getData())
-        {
+        mixpanel =
+                MixpanelAPI.getInstance(getApplicationContext(), "7794ef33d0569cd4c3041a629abcd1ab");
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
 
 
-            for(int i=0;i< beachData.getChosen_beach_info().size();i++)
-            {
+        //Se descarga la informacion sobre los usuario nuevamente
+        userData = UsersController.getInstance();
+        if (userData.getUserSessionState()) {
+            Log.d("Rino", "Va a descargar User del start");
+            userData = UsersController.getInstance();
+            userData.downloadDataFromAPi(getCacheDir());
+            SystemClock.sleep(3000);
+            userData.setSessionUser(userData.getIdSession());
 
-                chosen_beach_info.add(beachData.getChosen_beach_info().get(i));
-
+            nameUser.setText(userData.getNameSession());
+            emailUser.setText(userData.getEmailSession());
+            //para cargar la foto de la persona
+            if (userData.getProfile_pictureSession() == "null") {
+                Log.d("perro", "foto es null");
+                imageUser.setImageResource(R.drawable.beach_icon);
+            } else {
+                Glide.with(this).load(userData.getProfile_pictureSession()).into(imageUser);
             }
 
+            //recibe intent
+            Intent intent = getIntent();
+            // chosen_beach_info = intent.getStringArrayListExtra("selected_beach");
 
-            comments=chosen_beach_info.get(18);
-            //carga wigets
-            ImageView imageView = findViewById(R.id.icon_selected_beach);
-            TextView textView = findViewById(R.id.title_selected_beach);
-            //carga info de la palya seleccionada
-            String url = chosen_beach_info.get(5);
-            String title = chosen_beach_info.get(1);
-            //set info
-            Picasso.get().load(url).into(imageView);
-            textView.setText(title);
+            beachData = beachSelected.getInstance();
+
+            if (beachData.getData()) {
 
 
-            // Do something with the empty list here.
-        }else
-            {
-                idSelectedBeach=Integer.valueOf(chosen_beach_info.get(0));
+                for (int i = 0; i < beachData.getChosen_beach_info().size(); i++) {
+
+                    chosen_beach_info.add(beachData.getChosen_beach_info().get(i));
+
+                }
+
+
+                comments = chosen_beach_info.get(18);
+                //carga wigets
+                ImageView imageView = findViewById(R.id.icon_selected_beach);
+                TextView textView = findViewById(R.id.title_selected_beach);
+                //carga info de la palya seleccionada
+                String url = chosen_beach_info.get(5);
+                String title = chosen_beach_info.get(1);
+                //set info
+                Picasso.get().load(url).into(imageView);
+                textView.setText(title);
+
+
+                // Do something with the empty list here.
+            } else {
+                idSelectedBeach = Integer.valueOf(chosen_beach_info.get(0));
 
                 beachData.setChosen_beach_info(chosen_beach_info);
                 //beachData.setEmptyChoseInfo(false);
 
-                comments=chosen_beach_info.get(18);
+                comments = chosen_beach_info.get(18);
                 //carga wigets
                 ImageView imageView = findViewById(R.id.icon_selected_beach);
                 TextView textView = findViewById(R.id.title_selected_beach);
@@ -110,17 +152,13 @@ public class SelectedBeach extends AppCompatActivity
 
                 lat = chosen_beach_info.get(7);
                 longi = chosen_beach_info.get(8);
-                Log.d("tata",lat);
-                Log.d("tata",longi);
+                Log.d("tata", lat);
+                Log.d("tata", longi);
 
             }
-
-
-
-        mixpanel =
-                MixpanelAPI.getInstance(getApplicationContext(), "7794ef33d0569cd4c3041a629abcd1ab");
-
+        }
     }
+
 
     @Override
     public void onBackPressed() {

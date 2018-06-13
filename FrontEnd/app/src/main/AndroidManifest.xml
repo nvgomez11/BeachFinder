@@ -104,7 +104,8 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".About_selected"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:parentActivityName="com.example.nelson.beachfinder.About_section" />
         <activity
             android:name=".Comments"
             android:label="@string/title_activity_comments"

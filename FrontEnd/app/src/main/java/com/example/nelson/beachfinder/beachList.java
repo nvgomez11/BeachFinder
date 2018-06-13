@@ -84,11 +84,22 @@ public class beachList extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);*/
 
+
+
+
+
+
+
+    }
+    @Override
+    public void onResume()
+    {
+        super.onResume();
         //------------------------------------
 
         txt_empty = findViewById(R.id.txt_empty);
         txt_empty.setVisibility(View.INVISIBLE);
-        
+
         GridView gridView  = findViewById(R.id.grid_view);
         Intent intent = getIntent();
         String activityName = intent.getStringExtra("activity_name");
@@ -155,11 +166,6 @@ public class beachList extends AppCompatActivity
                 Log.d("oso",listita.get(j));
             }
         }
-
-
-
-
-
     }
 
     @Override

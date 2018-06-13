@@ -112,104 +112,7 @@ public class SearchActivity extends AppCompatActivity
         emailUser = (TextView) navHeader.findViewById(R.id.emailGoogle_user);
 
 
-        //
-        //request_json(activityName);
-        //Instantiate the cache
-        cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-        //Set up the network to use HttpURLConnection as the HTTP client.
-        network = new BasicNetwork(new HurlStack());
-        //Instantiate the RequestQueue with the cache and network.
-        mRequestQueue = new RequestQueue(cache, network);
-        //Start the queue
-        mRequestQueue.start();
-        // Initialize a new JsonArrayRequest instance
-        jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                //ip de la maquina, cel y compu deben estar en misma red
-                "https://beach-finder.herokuapp.com/beaches.json",
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        // Do something with response
-                        // Process the JSON
-                        Log.d("mop",response.toString());
-                        try{
-                            // Loop through the array elements
-                            for(int i=0;i<response.length();i++){
-                                // Get current json object
-                                JSONObject beach = response.getJSONObject(i);
-                                //lista donde sera guardada la info
-                                ArrayList<String> json_beach = new ArrayList<String>();
-                                String id = beach.getString("id");
-                                String beachName = beach.getString("beach_name");
-                                String location = beach.getString("location");
-                                String sand = beach.getString("sand_color");
-                                String description = beach.getString("description");
-                                String main_image = beach.getString("main_image");
-                                String secondary_image = beach.getString("secondary_image");
-                                String latitude = beach.getString("latitude");
-                                String longitude = beach.getString("longitude");
-                                String wave = beach.getString("wave_type");
-                                String snorkeling = beach.getString("snorkeling");
-                                String swimming = beach.getString("swimming");
-                                String shade = beach.getString("shade");
-                                String night_life = beach.getString("night_life");
-                                String camping_zone = beach.getString("camping_zone");
-                                String protected_area = beach.getString("protected_area");
-                                String cristal_water = beach.getString("cristal_water");
-                                String vegetation = beach.getString("vegetation");
-                                String comments = beach.getString("comments");
-                                //Son 19 datos de playas, es decir comments es el 18 empezando de 0
-                                json_beach.add(id);
-                                json_beach.add(beachName);
-                                json_beach.add(location);
-                                json_beach.add(sand);
-                                json_beach.add(description);
-                                json_beach.add(main_image);
-                                json_beach.add(secondary_image);
-                                json_beach.add(latitude);
-                                json_beach.add(longitude);
-                                json_beach.add(wave);
-                                json_beach.add(snorkeling);
-                                json_beach.add(swimming);
-                                json_beach.add(shade);
-                                json_beach.add(night_life);
-                                json_beach.add(camping_zone);
-                                json_beach.add(protected_area);
-                                json_beach.add(cristal_water);
-                                json_beach.add(vegetation);
-                                json_beach.add(comments);
 
-                                Log.d("Avion", "comentario tiene:"+comments);
-                                if (comments.equals(""))
-                                {
-                                    Log.d("Avion", "tiene comentarios vacios:"+beachName);
-                                }
-                                if(location.length()!=4){
-                                    all_json_beaches.add(json_beach);
-                                }
-                            }
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }
-
-
-                    }
-                },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                        // Do something when error occurred
-                        Log.d("Error","No pudo entrar al link");
-                    }
-                }
-
-        );
-
-        SystemClock.sleep(3000);
-        // Adding request to request queue
-        mRequestQueue.add(jsonArrayRequest);
 
         MixpanelAPI mixpanel =
                 MixpanelAPI.getInstance(getApplicationContext(), "7794ef33d0569cd4c3041a629abcd1ab");
@@ -217,9 +120,9 @@ public class SearchActivity extends AppCompatActivity
 
 
     }
-
-    protected void onStart() {
-        super.onStart();
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         //Se descarga la informacion sobre los usuario nuevamente
         userData = UsersController.getInstance();
@@ -242,6 +145,106 @@ public class SearchActivity extends AppCompatActivity
             {
                 Glide.with(this).load(userData.getProfile_pictureSession()).into(imageUser);
             }
+
+            //
+            //request_json(activityName);
+            //Instantiate the cache
+            cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+            //Set up the network to use HttpURLConnection as the HTTP client.
+            network = new BasicNetwork(new HurlStack());
+            //Instantiate the RequestQueue with the cache and network.
+            mRequestQueue = new RequestQueue(cache, network);
+            //Start the queue
+            mRequestQueue.start();
+            // Initialize a new JsonArrayRequest instance
+            jsonArrayRequest = new JsonArrayRequest(
+                    Request.Method.GET,
+                    //ip de la maquina, cel y compu deben estar en misma red
+                    "https://beach-finder.herokuapp.com/beaches.json",
+                    null,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            // Do something with response
+                            // Process the JSON
+                            Log.d("mop",response.toString());
+                            try{
+                                // Loop through the array elements
+                                for(int i=0;i<response.length();i++){
+                                    // Get current json object
+                                    JSONObject beach = response.getJSONObject(i);
+                                    //lista donde sera guardada la info
+                                    ArrayList<String> json_beach = new ArrayList<String>();
+                                    String id = beach.getString("id");
+                                    String beachName = beach.getString("beach_name");
+                                    String location = beach.getString("location");
+                                    String sand = beach.getString("sand_color");
+                                    String description = beach.getString("description");
+                                    String main_image = beach.getString("main_image");
+                                    String secondary_image = beach.getString("secondary_image");
+                                    String latitude = beach.getString("latitude");
+                                    String longitude = beach.getString("longitude");
+                                    String wave = beach.getString("wave_type");
+                                    String snorkeling = beach.getString("snorkeling");
+                                    String swimming = beach.getString("swimming");
+                                    String shade = beach.getString("shade");
+                                    String night_life = beach.getString("night_life");
+                                    String camping_zone = beach.getString("camping_zone");
+                                    String protected_area = beach.getString("protected_area");
+                                    String cristal_water = beach.getString("cristal_water");
+                                    String vegetation = beach.getString("vegetation");
+                                    String comments = beach.getString("comments");
+                                    //Son 19 datos de playas, es decir comments es el 18 empezando de 0
+                                    json_beach.add(id);
+                                    json_beach.add(beachName);
+                                    json_beach.add(location);
+                                    json_beach.add(sand);
+                                    json_beach.add(description);
+                                    json_beach.add(main_image);
+                                    json_beach.add(secondary_image);
+                                    json_beach.add(latitude);
+                                    json_beach.add(longitude);
+                                    json_beach.add(wave);
+                                    json_beach.add(snorkeling);
+                                    json_beach.add(swimming);
+                                    json_beach.add(shade);
+                                    json_beach.add(night_life);
+                                    json_beach.add(camping_zone);
+                                    json_beach.add(protected_area);
+                                    json_beach.add(cristal_water);
+                                    json_beach.add(vegetation);
+                                    json_beach.add(comments);
+
+                                    Log.d("Avion", "comentario tiene:"+comments);
+                                    if (comments.equals(""))
+                                    {
+                                        Log.d("Avion", "tiene comentarios vacios:"+beachName);
+                                    }
+                                    if(location.length()!=4){
+                                        all_json_beaches.add(json_beach);
+                                    }
+                                }
+                            }catch (JSONException e){
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    },
+                    new Response.ErrorListener(){
+                        @Override
+                        public void onErrorResponse(VolleyError error){
+                            // Do something when error occurred
+                            Log.d("Error","No pudo entrar al link");
+                        }
+                    }
+
+            );
+
+            SystemClock.sleep(3000);
+            // Adding request to request queue
+            mRequestQueue.add(jsonArrayRequest);
+
         }
         else {
 

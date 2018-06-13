@@ -3,6 +3,7 @@ package com.example.nelson.beachfinder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -61,6 +62,14 @@ public class Comments extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +93,7 @@ public class Comments extends AppCompatActivity
 
                 usersData=UsersController.getInstance();
                 beachData=beachSelected.getInstance();
-                String temp=usersData.getNameSession().toString()+" "+usersData.getLast_nameSession();
+                final String temp=usersData.getNameSession().toString()+" "+usersData.getLast_nameSession();
                 author.setText(temp);
 
                 Log.d("COMENTAR",comment.getText().toString());
@@ -135,8 +144,11 @@ public class Comments extends AppCompatActivity
                                 };
                                 MyRequestQueue.add(MyStringRequest);
                                 Toast.makeText(Comments.this, "Thank you very much! Your commment has been added", Toast.LENGTH_SHORT).show();
+                                SystemClock.sleep(3000);
 
-
+                                Intent intent = new Intent(Comments.this,SearchActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT); //(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET; Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
 
                                 // //---------Hacer POST al API beaches
 
@@ -184,27 +196,26 @@ public class Comments extends AppCompatActivity
             // Do something with the empty list here.
         }else
         {*/
-            GridView gridViewComments  = findViewById(R.id.grid_viewComment);
-            Intent intent = getIntent();
-            String comentarios = intent.getStringExtra("selected_beach");
+        GridView gridViewComments  = findViewById(R.id.grid_viewComment);
+        Intent intent = getIntent();
+        String comentarios = intent.getStringExtra("selected_beach");
 
 
-            String comentariosLista[]=comentarios.split("_");
-            //En este momento comentarios del API tiene forma así:
-            //[Autor:Comentario|Autor2:Comentario2]
+        String comentariosLista[]=comentarios.split("_");
+        //En este momento comentarios del API tiene forma así:
+        //[Autor:Comentario|Autor2:Comentario2]
 
-            for (String comentario:comentariosLista) {
-                String tempComent[]=comentario.split(":");
-                beach_comment.add(tempComent[1]);
-                beach_CommentAutor.add(tempComent[0]+" said...");
-            }
+        for (String comentario:comentariosLista) {
+            String tempComent[]=comentario.split(":");
+            beach_comment.add(tempComent[1]);
+            beach_CommentAutor.add(tempComent[0]+" said...");
+        }
 
 
-            GridCommentsAdapter adapterComment = new GridCommentsAdapter(this,beach_CommentAutor,beach_comment);
-            gridViewComments.setAdapter(adapterComment);
+        GridCommentsAdapter adapterComment = new GridCommentsAdapter(this,beach_CommentAutor,beach_comment);
+        gridViewComments.setAdapter(adapterComment);
 
         //}
-
     }
 
     @Override

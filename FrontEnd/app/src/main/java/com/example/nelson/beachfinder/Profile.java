@@ -3,6 +3,7 @@ package com.example.nelson.beachfinder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -25,10 +26,19 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,6 +54,12 @@ public class Profile extends AppCompatActivity
     EditText textViewNationality;
     EditText textViewPhone;
     EditText textViewEmail;
+
+
+    private ImageView imageUser;
+    private TextView nameUser;
+    private TextView emailUser;
+    private View navHeader;
 
 
 
@@ -99,6 +115,14 @@ public class Profile extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        //-----------------------------------------------------
+        //---------Para conectar a google silenciosamente y cargar foto nombre email
+        navHeader = navigationView.getHeaderView(0);
+        imageUser = (ImageView) navHeader.findViewById(R.id.imageViewGoogle_user);
+        nameUser = (TextView) navHeader.findViewById(R.id.nameGoogle_user);
+        emailUser = (TextView) navHeader.findViewById(R.id.emailGoogle_user);
+
         //--------------------------------------------------
         //UsuarioSesion userSession = UsuarioSesion.getInstance();
         userData=UsersController.getInstance();
@@ -128,6 +152,39 @@ public class Profile extends AppCompatActivity
         ImageView image = findViewById(R.id.imageProfile);
         Picasso.get().load(urlImageProfile).into(image);
         //----------------------------------------
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Se descarga la informacion sobre los usuario nuevamente
+        userData = UsersController.getInstance();
+        if (userData.getUserSessionState())
+        {
+            Log.d("Rino", "Va a descargar User del start");
+            userData = UsersController.getInstance();
+            userData.downloadDataFromAPi(getCacheDir());
+            SystemClock.sleep(3000);
+            userData.setSessionUser(userData.getIdSession());
+
+            nameUser.setText(userData.getNameSession());
+            emailUser.setText(userData.getEmailSession());
+            //para cargar la foto de la persona
+            if (userData.getProfile_pictureSession() == "null") {
+                Log.d("perro", "foto es null");
+                imageUser.setImageResource(R.drawable.beach_icon);
+            }
+            else
+            {
+                Glide.with(this).load(userData.getProfile_pictureSession()).into(imageUser);
+            }
+
+        }
+        else {
+
+            //Login con FB
+        }
     }
 
     @Override
